@@ -1,0 +1,1859 @@
+{
+  "id": "1bc2f43c-330a-4246-96ba-c27de086b2ee",
+  "revision": 0,
+  "last_node_id": 35,
+  "last_link_id": 73,
+  "nodes": [
+    {
+      "id": 10,
+      "type": "CLIPLoader",
+      "pos": [
+        3421.664306640625,
+        1754.0826416015625
+      ],
+      "size": [
+        292.5837707519531,
+        106
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "clip_name",
+          "name": "clip_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "clip_name"
+          },
+          "link": null
+        },
+        {
+          "label": "type",
+          "name": "type",
+          "type": "COMBO",
+          "widget": {
+            "name": "type"
+          },
+          "link": null
+        },
+        {
+          "label": "device",
+          "name": "device",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "device"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "CLIP",
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            22
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.29.0",
+        "Node name for S&R": "CLIPLoader",
+        "models": [
+          {
+            "name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+            "directory": "text_encoders",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors"
+          }
+        ],
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+        "minimax",
+        "default"
+      ],
+      "widgets_values_named": {
+        "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+        "type": "minimax",
+        "device": "default"
+      },
+      "color": "#c09430",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 20,
+      "type": "KSamplerSelect",
+      "pos": [
+        3846.14306640625,
+        2096.0703125
+      ],
+      "size": [
+        210,
+        58
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "sampler_name",
+          "name": "sampler_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "sampler_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "SAMPLER",
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            70
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.33.0",
+        "Node name for S&R": "KSamplerSelect",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "sampler_name": true
+          },
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "euler"
+      ],
+      "widgets_values_named": {
+        "sampler_name": "euler"
+      }
+    },
+    {
+      "id": 22,
+      "type": "BasicScheduler",
+      "pos": [
+        3851.291015625,
+        2187.343994140625
+      ],
+      "size": [
+        318.6900390625,
+        106
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 72
+        },
+        {
+          "label": "scheduler",
+          "name": "scheduler",
+          "type": "COMBO",
+          "widget": {
+            "name": "scheduler"
+          },
+          "link": null
+        },
+        {
+          "label": "steps",
+          "name": "steps",
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": null
+        },
+        {
+          "label": "denoise",
+          "name": "denoise",
+          "type": "FLOAT",
+          "widget": {
+            "name": "denoise"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "SIGMAS",
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            68
+          ]
+        }
+      ],
+      "title": "★ Steps — set them here (beta scheduler)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.34.2",
+        "Node name for S&R": "BasicScheduler",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "scheduler": true,
+            "denoise": true,
+            "steps": true
+          },
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "beta",
+        8,
+        1
+      ],
+      "widgets_values_named": {
+        "scheduler": "beta",
+        "steps": 8,
+        "denoise": 1
+      },
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 24,
+      "type": "KSamplerSelect",
+      "pos": [
+        4158.18603515625,
+        2090.13427734375
+      ],
+      "size": [
+        210,
+        58
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "sampler_name",
+          "name": "sampler_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "sampler_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "SAMPLER",
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            71
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.33.0",
+        "Node name for S&R": "KSamplerSelect",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "sampler_name": true
+          },
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "sa_solver"
+      ],
+      "widgets_values_named": {
+        "sampler_name": "sa_solver"
+      }
+    },
+    {
+      "id": 21,
+      "type": "ModelPreviewOverrideKJ",
+      "pos": [
+        4483.2822265625,
+        1707.0355224609375
+      ],
+      "size": [
+        498.4097595214844,
+        592.3204956054688
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 4,
+      "inputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 36
+        },
+        {
+          "label": "vae",
+          "name": "vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": null
+        },
+        {
+          "name": "audio_vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": null
+        },
+        {
+          "label": "max_resolution",
+          "name": "max_resolution",
+          "type": "INT",
+          "widget": {
+            "name": "max_resolution"
+          },
+          "link": null
+        },
+        {
+          "label": "jpeg_quality",
+          "name": "jpeg_quality",
+          "type": "INT",
+          "widget": {
+            "name": "jpeg_quality"
+          },
+          "link": null
+        },
+        {
+          "label": "suppress_default_preview",
+          "name": "suppress_default_preview",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "suppress_default_preview"
+          },
+          "link": null
+        },
+        {
+          "label": "preview_frames",
+          "name": "preview_frames",
+          "type": "INT",
+          "widget": {
+            "name": "preview_frames"
+          },
+          "link": null
+        },
+        {
+          "label": "preview_fps",
+          "name": "preview_fps",
+          "type": "INT",
+          "widget": {
+            "name": "preview_fps"
+          },
+          "link": null
+        },
+        {
+          "label": "tiny_vae",
+          "name": "tiny_vae",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "tiny_vae"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "MODEL",
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            50,
+            72
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "3f20054214fec9f9234fd3841ae6f1e4287948f6",
+        "Node name for S&R": "ModelPreviewOverrideKJ",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "preview_frames": true,
+            "suppress_default_preview": true,
+            "jpeg_quality": true,
+            "tiny_vae": true,
+            "preview_fps": true,
+            "max_resolution": true
+          },
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {},
+        "kjPovPanelH": 104
+      },
+      "widgets_values": [
+        1024,
+        80,
+        true,
+        48,
+        24,
+        "taeh3.safetensors",
+        ""
+      ],
+      "widgets_values_named": {
+        "max_resolution": 1024,
+        "jpeg_quality": 80,
+        "suppress_default_preview": true,
+        "preview_frames": 48,
+        "preview_fps": 24,
+        "tiny_vae": "taeh3.safetensors",
+        "preview": ""
+      }
+    },
+    {
+      "id": 16,
+      "type": "easy modelLoaderPack",
+      "pos": [
+        3593.47216796875,
+        2158.463623046875
+      ],
+      "size": [
+        177.87890625,
+        86
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 50
+        },
+        {
+          "label": "clip",
+          "name": "clip",
+          "type": "CLIP",
+          "link": 22
+        },
+        {
+          "label": "vae",
+          "name": "vae",
+          "type": "VAE",
+          "link": 21
+        },
+        {
+          "label": "audio_vae",
+          "name": "audio_vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": 59
+        }
+      ],
+      "outputs": [
+        {
+          "label": "model_loader",
+          "name": "model_loader",
+          "type": "FAST_MODEL_LOADER",
+          "links": [
+            18
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-media",
+        "ver": "e1893122c0e5a26d3544e99e4b35124d64901e66",
+        "Node name for S&R": "easy modelLoaderPack",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      }
+    },
+    {
+      "id": 2,
+      "type": "VAELoader",
+      "pos": [
+        3427.623779296875,
+        1909.539306640625
+      ],
+      "size": [
+        284.6875,
+        58
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "vae_name",
+          "name": "vae_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "vae_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "VAE",
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            21
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.29.0",
+        "Node name for S&R": "VAELoader",
+        "models": [
+          {
+            "directory_invalid": true,
+            "name": "minimax_h3_video_vae_fp16.safetensors",
+            "directory": "vae",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors"
+          }
+        ],
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "minimax_h3_video_vae_int8_convrot.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "minimax_h3_video_vae_int8_convrot.safetensors"
+      },
+      "color": "#af3535",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 1,
+      "type": "VAELoader",
+      "pos": [
+        3432.1513671875,
+        2011.9683837890625
+      ],
+      "size": [
+        284.4346923828125,
+        58
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "vae_name",
+          "name": "vae_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "vae_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "VAE",
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            59
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.29.0",
+        "Node name for S&R": "VAELoader",
+        "models": [
+          {
+            "directory_invalid": true,
+            "name": "minimax_h3_audio_vae_fp32.safetensors",
+            "directory": "vae",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors"
+          }
+        ],
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "minimax_h3_audio_vae_fp32.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+      },
+      "color": "#af3535",
+      "bgcolor": "rgba(24,24,27,.9)"
+    },
+    {
+      "id": 13,
+      "type": "ModelAttentionBackend",
+      "pos": [
+        3112.122314453125,
+        2034.1025390625
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 4,
+      "inputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 51
+        },
+        {
+          "label": "attention",
+          "name": "attention",
+          "type": "COMBO",
+          "widget": {
+            "name": "attention"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "MODEL",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.33.0",
+        "Node name for S&R": "ModelAttentionBackend",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "attention": true
+          },
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "comfy kitchen attention"
+      ],
+      "widgets_values_named": {
+        "attention": "comfy kitchen attention"
+      }
+    },
+    {
+      "id": 32,
+      "type": "Note",
+      "pos": [
+        2575.114501953125,
+        2182.365478515625
+      ],
+      "size": [
+        434.2206218673082,
+        176.85887359458684
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "MODEL STACK\n==========================\nBase model : Minimax-h3_Singularity_ref2va_v1.3_int8  (ref2v fine-tune)\nLoRA       : minimax_h3_ref2v_turbo_4step_v0.1   strength 1.0\nSampling   : BasicScheduler (beta, adjustable steps) + euler\nMode       : SINGLE pass  — one sampling pass, no second pass\n\n* Singularity pairs with the 4-step v0.1 LoRA only. Don't swap in the 8-step LoRA.\n* Singularity is a reference-to-video specialist. For plain image-to-video,\n  use a hybrid base model instead."
+      ],
+      "widgets_values_named": {
+        "text": "MODEL STACK\n==========================\nBase model : Minimax-h3_Singularity_ref2va_v1.3_int8  (ref2v fine-tune)\nLoRA       : minimax_h3_ref2v_turbo_4step_v0.1   strength 1.0\nSampling   : BasicScheduler (beta, adjustable steps) + euler\nMode       : SINGLE pass  — one sampling pass, no second pass\n\n* Singularity pairs with the 4-step v0.1 LoRA only. Don't swap in the 8-step LoRA.\n* Singularity is a reference-to-video specialist. For plain image-to-video,\n  use a hybrid base model instead."
+      },
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 34,
+      "type": "Note",
+      "pos": [
+        2414.253662109375,
+        2401.242431640625
+      ],
+      "size": [
+        620,
+        680
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "H3 LONG TAKE — Motion Context V2 (local)\n==========================================\n\nSAMPLING\n  sampling_mode = single     <- NOT dual. This is the whole trick.\n  Tested: continuing a chain off dual-pass latents gives pixel shift at\n  the joins. Single pass joins clean. For long takes, always single.\n  1st_pass_only / disable_2nd_noise only affect the second pass.\n  In single mode they do nothing — leave them.\n\nSTEPS (green BasicScheduler node)\n  8   default. Dancing, fast hands, busy backgrounds, walking + talking\n  6   low motion: talking head, slow walk, locked camera\n  4   runs, but dialogue drops syllables. Only with no speech.\n\nRESOLUTION\n  1.0 MP  fast, safe default for iteration\n  1.4 MP  up to ~10 s per segment on a 24-32 GB card\n  Past ~1.2-1.4 MP you mostly buy size, not detail.\n  VRAM rule of thumb: frames x megapixels <= ~540 per segment.\n\nMULTI-TRACK EDITOR\n  Segment 1 = \"shot\".  Every later segment = \"context\".\n  ref_image_size = max\n  Put the reference image on segment 1 -> hover it -> Share icon ->\n  \"Use as shared reference\". Later segments inherit it automatically.\n\nPROJECT SETTINGS (Multi-Track Project node)\n  project_name          always name it (empty = \"default\")\n  segment_start_number  counts from 1\n  segment_count         -1 = from start segment to the end\n  Re-render ONE segment: start = N, count = 1  (local only —\n  the saved context latents live in output/easy_media/projects/<name>/)\n\nPROMPTS\n  - A context segment's timestamps land ~0.92 s early in the final\n    video (22 pinned frames are trimmed). Write T + 0.92 to land at T.\n  - Open every context segment with CONTINUATION only — same pace,\n    same camera, same light — and zero scenery nouns.\n  - Never carry a progressive camera move across a join.\n  - Put joins mid-walk / mid-climb, never on a doorway or threshold.\n  - Dialogue: ~one short line every 2.5 s. Split between sentences."
+      ],
+      "widgets_values_named": {
+        "text": "H3 LONG TAKE — Motion Context V2 (local)\n==========================================\n\nSAMPLING\n  sampling_mode = single     <- NOT dual. This is the whole trick.\n  Tested: continuing a chain off dual-pass latents gives pixel shift at\n  the joins. Single pass joins clean. For long takes, always single.\n  1st_pass_only / disable_2nd_noise only affect the second pass.\n  In single mode they do nothing — leave them.\n\nSTEPS (green BasicScheduler node)\n  8   default. Dancing, fast hands, busy backgrounds, walking + talking\n  6   low motion: talking head, slow walk, locked camera\n  4   runs, but dialogue drops syllables. Only with no speech.\n\nRESOLUTION\n  1.0 MP  fast, safe default for iteration\n  1.4 MP  up to ~10 s per segment on a 24-32 GB card\n  Past ~1.2-1.4 MP you mostly buy size, not detail.\n  VRAM rule of thumb: frames x megapixels <= ~540 per segment.\n\nMULTI-TRACK EDITOR\n  Segment 1 = \"shot\".  Every later segment = \"context\".\n  ref_image_size = max\n  Put the reference image on segment 1 -> hover it -> Share icon ->\n  \"Use as shared reference\". Later segments inherit it automatically.\n\nPROJECT SETTINGS (Multi-Track Project node)\n  project_name          always name it (empty = \"default\")\n  segment_start_number  counts from 1\n  segment_count         -1 = from start segment to the end\n  Re-render ONE segment: start = N, count = 1  (local only —\n  the saved context latents live in output/easy_media/projects/<name>/)\n\nPROMPTS\n  - A context segment's timestamps land ~0.92 s early in the final\n    video (22 pinned frames are trimmed). Write T + 0.92 to land at T.\n  - Open every context segment with CONTINUATION only — same pace,\n    same camera, same light — and zero scenery nouns.\n  - Never carry a progressive camera move across a join.\n  - Put joins mid-walk / mid-climb, never on a doorway or threshold.\n  - Dialogue: ~one short line every 2.5 s. Split between sentences."
+      },
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 33,
+      "type": "ManualSigmas",
+      "pos": [
+        3960.82666015625,
+        1901.8392333984375
+      ],
+      "size": [
+        442.3248046875,
+        60
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "sigmas",
+          "name": "sigmas",
+          "type": "STRING",
+          "widget": {
+            "name": "sigmas"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "SIGMAS",
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            69
+          ]
+        }
+      ],
+      "title": "Pass 2 sigmas (only used if sampling_mode = dual — ignore)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.34.2",
+        "Node name for S&R": "ManualSigmas",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "sigmas": true
+          },
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "0.50, 0.30, 0.14, 0.06, 0.0"
+      ],
+      "widgets_values_named": {
+        "sigmas": "0.50, 0.30, 0.14, 0.06, 0.0"
+      }
+    },
+    {
+      "id": 11,
+      "type": "UNETLoader",
+      "pos": [
+        3058.201171875,
+        1741.4371337890625
+      ],
+      "size": [
+        359.2928771972656,
+        247.37753295898438
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "unet_name",
+          "name": "unet_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "unet_name"
+          },
+          "link": null
+        },
+        {
+          "label": "weight_dtype",
+          "name": "weight_dtype",
+          "type": "COMBO",
+          "widget": {
+            "name": "weight_dtype"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "MODEL",
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            51,
+            56
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.34.2",
+        "Node name for S&R": "UNETLoader",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "weight_dtype": true,
+            "unet_name": true
+          },
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "Minimax-h3_Singularity_ref2va_Pruned_v1.3_int8.safetensors",
+        "default"
+      ],
+      "widgets_values_named": {
+        "unet_name": "Minimax-h3_Singularity_ref2va_Pruned_v1.3_int8.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    {
+      "id": 27,
+      "type": "MiniMaxH3MemoryEfficientSageAttentionPatch",
+      "pos": [
+        3075.551025390625,
+        2086.532958984375
+      ],
+      "size": [
+        357.1148376464844,
+        26
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 56
+        }
+      ],
+      "outputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            62
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "3f20054214fec9f9234fd3841ae6f1e4287948f6",
+        "Node name for S&R": "MiniMaxH3MemoryEfficientSageAttentionPatch",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      }
+    },
+    {
+      "id": 6,
+      "type": "LoraLoaderModelOnly",
+      "pos": [
+        3089.706298828125,
+        2174.3525390625
+      ],
+      "size": [
+        366.1754455566406,
+        92.38874053955078
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 62
+        },
+        {
+          "label": "lora_name",
+          "name": "lora_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "lora_name"
+          },
+          "link": null
+        },
+        {
+          "label": "strength_model",
+          "name": "strength_model",
+          "type": "FLOAT",
+          "widget": {
+            "name": "strength_model"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "MODEL",
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            36
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.32.0",
+        "Node name for S&R": "LoraLoaderModelOnly",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "lora_name": true,
+            "strength_model": true
+          },
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors",
+        1
+      ],
+      "widgets_values_named": {
+        "lora_name": "minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors",
+        "strength_model": 1
+      }
+    },
+    {
+      "id": 15,
+      "type": "easy multitrackProject",
+      "pos": [
+        3911.005126953125,
+        2452.80322265625
+      ],
+      "size": [
+        273.552734375,
+        502
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "tracks_info",
+          "name": "tracks_info",
+          "type": "TRACKS_INFO",
+          "link": 60
+        },
+        {
+          "label": "model_loader",
+          "name": "model_loader",
+          "type": "FAST_MODEL_LOADER",
+          "link": 18
+        },
+        {
+          "label": "model_loader_2nd",
+          "name": "model_loader_2nd",
+          "shape": 7,
+          "type": "FAST_MODEL_LOADER",
+          "link": null
+        },
+        {
+          "label": "sampler",
+          "name": "sampler",
+          "shape": 7,
+          "type": "SAMPLER",
+          "link": 70
+        },
+        {
+          "label": "sampler_2nd",
+          "name": "sampler_2nd",
+          "shape": 7,
+          "type": "SAMPLER",
+          "link": 71
+        },
+        {
+          "label": "sigmas",
+          "name": "sigmas",
+          "shape": 7,
+          "type": "SIGMAS",
+          "link": 68
+        },
+        {
+          "label": "sigmas_2nd",
+          "name": "sigmas_2nd",
+          "shape": 7,
+          "type": "SIGMAS",
+          "link": 69
+        },
+        {
+          "label": "project_name",
+          "name": "project_name",
+          "type": "STRING",
+          "widget": {
+            "name": "project_name"
+          },
+          "link": null
+        },
+        {
+          "label": "project_save",
+          "name": "project_save",
+          "type": "COMBO",
+          "widget": {
+            "name": "project_save"
+          },
+          "link": null
+        },
+        {
+          "label": "segment_start_number",
+          "name": "segment_start_number",
+          "type": "INT",
+          "widget": {
+            "name": "segment_start_number"
+          },
+          "link": null
+        },
+        {
+          "label": "segment_count",
+          "name": "segment_count",
+          "type": "INT",
+          "widget": {
+            "name": "segment_count"
+          },
+          "link": null
+        },
+        {
+          "label": "seed",
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": null
+        },
+        {
+          "label": "sampling_plan",
+          "name": "sampling_plan",
+          "type": "COMBO",
+          "widget": {
+            "name": "sampling_plan"
+          },
+          "link": null
+        },
+        {
+          "label": "sampling_mode",
+          "name": "sampling_mode",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "sampling_mode"
+          },
+          "link": null
+        },
+        {
+          "label": "1st_pass_only",
+          "name": "1st_pass_only",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "1st_pass_only"
+          },
+          "link": null
+        },
+        {
+          "label": "disable_2nd_noise",
+          "name": "disable_2nd_noise",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "disable_2nd_noise"
+          },
+          "link": null
+        },
+        {
+          "label": "upscale_by",
+          "name": "upscale_by",
+          "type": "FLOAT",
+          "widget": {
+            "name": "upscale_by"
+          },
+          "link": null
+        },
+        {
+          "label": "upscale_model",
+          "name": "upscale_model",
+          "type": "COMBO",
+          "widget": {
+            "name": "upscale_model"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "PROJECT_NAME",
+          "name": "PROJECT_NAME",
+          "type": "STRING",
+          "links": [
+            19
+          ]
+        },
+        {
+          "label": "LOCKED_AUDIO",
+          "name": "LOCKED_AUDIO",
+          "type": "AUDIO",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-media",
+        "ver": "5739638c646a66a93d60c51714593b2b96a2a3b6",
+        "Node name for S&R": "easy multitrackProject",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "segment_count": true,
+            "project_save": true,
+            "segment_start_number": true,
+            "1st_pass_only": true,
+            "seed": true,
+            "sampling_plan": true,
+            "disable_2nd_noise": true,
+            "upscale_model": true,
+            "project_name": true,
+            "sampling_mode": true,
+            "upscale_by": true
+          },
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "longtake_demo",
+        "override",
+        1,
+        -1,
+        73761829499971,
+        "randomize",
+        "custom",
+        "single",
+        false,
+        false,
+        1.5,
+        "minimax_h3_latent_upscaler_3d_bf16.safetensors",
+        "false",
+        ""
+      ],
+      "widgets_values_named": {
+        "project_name": "longtake_demo",
+        "project_save": "override",
+        "segment_start_number": 1,
+        "segment_count": -1,
+        "seed": 73761829499971,
+        "fixed": "randomize",
+        "sampling_plan": "custom",
+        "sampling_mode": "single",
+        "1st_pass_only": false,
+        "disable_2nd_noise": false,
+        "upscale_by": 1.5,
+        "upscale_model": "minimax_h3_latent_upscaler_3d_bf16.safetensors",
+        "enabled_tiling": "false",
+        "easy-media-sampling-preview": ""
+      }
+    },
+    {
+      "id": 29,
+      "type": "easy multiTrackEditor",
+      "pos": [
+        3031.83056640625,
+        2445.646484375
+      ],
+      "size": [
+        791.0493774414062,
+        915.7037963867188
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "prompt_override",
+          "name": "prompt_override",
+          "shape": 7,
+          "type": "*",
+          "link": null
+        },
+        {
+          "label": "image",
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "audio",
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "label": "video",
+          "name": "video",
+          "shape": 7,
+          "type": "VIDEO",
+          "link": null
+        },
+        {
+          "label": "resolution",
+          "name": "resolution",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "resolution"
+          },
+          "link": null
+        },
+        {
+          "label": "format",
+          "name": "format",
+          "type": "COMBO",
+          "widget": {
+            "name": "format"
+          },
+          "link": null
+        },
+        {
+          "label": "track_data",
+          "name": "track_data",
+          "type": "TRACK_DATA",
+          "widget": {
+            "name": "track_data"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "TRACKS_INFO",
+          "name": "TRACKS_INFO",
+          "type": "TRACKS_INFO",
+          "links": [
+            60
+          ]
+        },
+        {
+          "label": "IMAGES",
+          "name": "IMAGES",
+          "shape": 6,
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "label": "AUDIO",
+          "name": "AUDIO",
+          "shape": 6,
+          "type": "AUDIO",
+          "links": []
+        },
+        {
+          "label": "VIDEO",
+          "name": "VIDEO",
+          "shape": 6,
+          "type": "VIDEO",
+          "links": []
+        }
+      ],
+      "properties": {
+        "easyMediaTimelineHeight": 915.7037963867188,
+        "cnr_id": "comfyui-easy-media",
+        "ver": "1254e0e0afa9afee268027b9540fdc91c888ebc5",
+        "Node name for S&R": "easy multiTrackEditor",
+        "easyMediaTimelineSize": [
+          791.0493774414062,
+          851.7037963867188
+        ],
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "width x height (megapixels)",
+        "16:9 (Widescreen)",
+        1.2,
+        "MiniMax",
+        "{\"muted\":false,\"volume_db\":0,\"task_markers\":[],\"task_overview\":false,\"tracks\":[{\"id\":\"c64f6cef-34eb-4602-820a-defc4ced0f45\",\"name\":\"Task 0\",\"type\":\"task\",\"task_mode\":\"default\",\"color\":\"var(--multitrack-task-bg)\",\"muted\":false,\"solo\":false,\"volume_db\":0,\"locked\":false,\"segments\":[{\"id\":\"2b149dc8-8909-4aca-ba45-6056a98f5476\",\"start_frame\":0,\"end_frame\":192,\"color\":\"var(--multitrack-task-bg)\",\"content\":{\"media_type\":\"none\",\"task_mode\":\"ref\",\"continuity_mode\":\"shot\",\"ref_image_size\":\"match\",\"images\":[{\"id\":\"e5083e80-cf15-4c75-84cc-47c0512ff1c1\",\"source_type\":\"input\",\"file_path\":\"willian-ia.png\",\"file_name\":\"willian-ia.png\",\"shared_reference\":true}],\"muted\":false,\"volume_db\":0,\"user_prompt\":\"subject_definitions:\\r\\n<Subject 1> is the man whose face and hair come entirely from <Picture 1>. He wears a plain dark jacket over a grey t-shirt, no accessories.\\r\\n\\r\\nsummary:\\r\\n[reference generation] One unbroken Steadicam shot following <Subject 1> from behind. He hurries, frightened and desperate, down a dim sterile passage toward two heavy steel doors, shoves them open and steps into a dark survival-horror laboratory. The lamps down the corridor ahead ignite one by one as he walks. He is still walking forward, mid-stride, when the segment ends.\\r\\n\\r\\nretention_analysis:\\r\\n<Subject 1> (appears in [Shot 1]): fully_preserved - face and hair follow <Picture 1> exactly, with the same jacket and t-shirt throughout.\\r\\n\\r\\ndetailed_description:\\r\\n[Shot 1] Steadicam follow shot from directly behind and slightly to the right of <Subject 1>, at shoulder height, framing head to waist, never wider and never tighter, no pans, no tilts, the camera matching his pace. A sterile underground research facility: wet concrete floor, brushed-steel walls, recessed ceiling lamps, dust hanging in the air, no logos and no readable signs. At the end of the passage, two heavy steel doors lit by a single red light. Low-key lighting: the lamps stay off until he brings them on.\\r\\n\\r\\n00:00.000-00:01.200: <Subject 1> hurries along the passage toward the steel doors, walking fast and almost running, breathing hard, shoulders tight, clearly desperate.\\r\\n00:01.200-00:02.800: He shoves both doors open with his full weight and steps through into the dark laboratory beyond.\\r\\n00:02.800-00:04.000: Darkness. One lamp far down the corridor buzzes and flickers on.\\r\\n00:04.000-00:06.000: More lamps ignite one by one down the corridor ahead of him, each with a buzz and a flicker, pooling light on the wet floor.\\r\\n00:06.000-00:08.000: He keeps walking forward through the lit pools while the lamps further ahead keep igniting, toward a faint green glow at the far end. At 00:08.000 he is still walking forward, mid-stride, nothing else in progress.\\r\\n\\r\\nHe does not stop or turn around in this segment. No one else appears. No dialogue, only breathing and footsteps. The camera does not push in, pan or tilt.\\r\\n\\r\\noverall_soundscape:\\r\\nEchoing footsteps on wet concrete, his fast uneven breathing, the groan of the heavy steel doors, the buzz, tick and flicker of each lamp igniting, a low hum from the facility.\\r\\n\\r\\nnon_diegetic_music:\\r\\nN/A\"}},{\"id\":\"8c043c0e-9b1f-4fa4-96c7-96d4f2d4e98f\",\"start_frame\":192,\"end_frame\":384,\"color\":\"var(--multitrack-task-bg)\",\"content\":{\"media_type\":\"none\",\"task_mode\":\"ref\",\"continuity_mode\":\"context\",\"ref_image_size\":\"match\",\"images\":[{\"id\":\"49c443cd-e2ac-4451-8e13-01b011aa805a\",\"source_type\":\"input\",\"file_path\":\"willian-ia.png\",\"file_name\":\"willian-ia.png\",\"shared_reference\":true,\"shared_reference_copy\":true}],\"muted\":false,\"volume_db\":0,\"user_prompt\":\"subject_definitions:\\r\\n<Subject 1> is the man whose face and hair come entirely from <Picture 1>. Same plain dark jacket and grey t-shirt as before.\\r\\n\\r\\nsummary:\\r\\n[reference generation] The same unbroken shot continues. <Subject 1> keeps walking down the corridor while the lamps ignite one after another toward the far end. Glass capsules appear along both walls, each holding a dim figure of his own build. He slows and turns his head toward the capsules on the left, eyes widening. He is still walking when the segment ends.\\r\\n\\r\\nretention_analysis:\\r\\n<Subject 1> (appears in [Shot 1]): fully_preserved - face and hair follow <Picture 1> exactly, jacket and t-shirt unchanged.\\r\\n\\r\\ndetailed_description:\\r\\n[Shot 1] The video opens already in progress, mid-stride. The camera holds exactly the position, height and distance it already has, behind and to the right of <Subject 1>, matching his pace and framing head to waist. He keeps moving at exactly the same pace through the space he is already in, the light on him unchanged. For the first three seconds nothing changes: no new object enters the frame, the light does not shift, and he does not stop, turn around or reach the glass. His breathing stays fast and his shoulders rise and fall with each step.\\r\\n\\r\\n00:03.920-00:05.420: Far ahead, the lamps keep igniting one after another toward the end of the corridor, each with a buzz and a flicker, pushing the light deeper.\\r\\n00:05.420-00:06.920: In that new light, glass capsules come into view set into both walls at head height, filled with green-tinted fluid that glows. A dim figure floats inside each one, the same build and hair as <Subject 1>, faces softened by the glass and the fluid, bubbles rising.\\r\\n00:06.920-00:08.000: He slows his pace and turns his head toward the capsules on the left wall, eyes widening. At 00:08.000 he is still walking slowly, head turned toward the left wall, nothing else in progress.\\r\\n\\r\\nHe does not reach a capsule or touch the glass in this segment, does not stop, does not speak. The camera does not push in, pan or tilt.\\r\\n\\r\\noverall_soundscape:\\r\\nLamps buzzing and ticking as they ignite, echoing footsteps, bubbling inside the capsules, a low electrical hum growing louder, his uneven breathing.\\r\\n\\r\\nnon_diegetic_music:\\r\\nN/A\"}},{\"id\":\"9265d716-790a-451a-a82e-7c80e6fc6ab9\",\"start_frame\":384,\"end_frame\":576,\"color\":\"var(--multitrack-task-bg)\",\"content\":{\"media_type\":\"none\",\"task_mode\":\"ref\",\"continuity_mode\":\"context\",\"ref_image_size\":\"match\",\"images\":[{\"id\":\"f7a3e8b4-9204-473c-83cd-14c3dc36c369\",\"source_type\":\"input\",\"file_path\":\"willian-ia.png\",\"file_name\":\"willian-ia.png\",\"shared_reference\":true,\"shared_reference_copy\":true}],\"muted\":false,\"volume_db\":0,\"user_prompt\":\"subject_definitions:\\r\\n<Subject 1> is the man whose face and hair come entirely from <Picture 1>. Same plain dark jacket and grey t-shirt as before.\\r\\n\\r\\nsummary:\\r\\n[reference generation] The same unbroken shot continues. <Subject 1> walks slowly past the row of capsules, flinches at the dim figures floating inside them and says, in Brazilian Portuguese, that he did not know he had so many clones. The lamps keep lighting the corridor ahead. He is still walking slowly, eyes on the capsules, when the segment ends.\\r\\n\\r\\nretention_analysis:\\r\\n<Subject 1> (appears in [Shot 1]): fully_preserved - face and hair follow <Picture 1> exactly, jacket and t-shirt unchanged.\\r\\n\\r\\ndetailed_description:\\r\\n[Shot 1] The video opens already in progress, mid-stride, still walking slowly with his head turned toward the left wall. The camera holds exactly the position, height and distance it already has, behind and to the right of <Subject 1>, matching his slow pace, framing head to waist. For the first three seconds nothing changes: no new object enters the frame, the light does not shift, and he does not stop, turn around or start toward the glass. He keeps looking to the left as the capsules slide past.\\r\\n\\r\\n00:03.920-00:05.420: He passes the first capsule on his left. The figure inside hangs still behind the glass, eyes closed. His shoulders jerk as he flinches, but he keeps walking.\\r\\nAt 00:04.320: [speaking, Brazilian Portuguese, adult male voice, natural Brazilian accent, realistic cinematic film dialogue, frightened and breathless, low and unsteady, close and intimate] \\\"Cara, eu não sabia que eu tinha tantos clones.\\\"\\r\\n00:05.420-00:06.920: The row of capsules runs on down both walls under the lamps, each figure dim and blurred, each one another copy of him.\\r\\n00:06.920-00:08.000: He keeps his slow pace, eyes on the capsules, breath short. At 00:08.000 he is still walking slowly, eyes on the capsules, nothing else in progress.\\r\\n\\r\\nHe does not stop, does not open or touch any capsule, does not look straight into the lens. The camera does not push in or pan. No one else appears.\\r\\n\\r\\noverall_soundscape:\\r\\nSoft footsteps on wet concrete, bubbling fluid inside the capsules, a low electrical hum, his short breaths, his voice close and slightly dry.\\r\\n\\r\\nnon_diegetic_music:\\r\\nN/A\"}},{\"id\":\"3550f4aa-6dd3-4fc1-a793-c6bab7b5ea87\",\"start_frame\":576,\"end_frame\":768,\"color\":\"var(--multitrack-task-bg)\",\"content\":{\"media_type\":\"none\",\"task_mode\":\"ref\",\"continuity_mode\":\"context\",\"ref_image_size\":\"match\",\"images\":[{\"id\":\"e070db28-bfe9-49df-ba97-384231c51734\",\"source_type\":\"input\",\"file_path\":\"willian-ia.png\",\"file_name\":\"willian-ia.png\",\"shared_reference\":true,\"shared_reference_copy\":true}],\"muted\":false,\"volume_db\":0,\"user_prompt\":\"subject_definitions:\\r\\n<Subject 1> is the man whose face and hair come entirely from <Picture 1>. Same plain dark jacket and grey t-shirt as before.\\r\\n\\r\\nsummary:\\r\\n[reference generation] The same unbroken shot continues to the end. <Subject 1> keeps walking past the capsules while he speaks in Brazilian Portuguese, then stops, turns around to face the lens and stares at the glowing glass beside him. The camera pushes in to a tight close-up of his face as he says that all of this is scaring him. The close-up holds to the end.\\r\\n\\r\\nretention_analysis:\\r\\n<Subject 1> (appears in [Shot 1]): fully_preserved - face and hair follow <Picture 1> exactly, jacket and t-shirt unchanged.\\r\\n\\r\\ndetailed_description:\\r\\n[Shot 1] The video opens already in progress, mid-stride, still walking slowly past the capsules. The camera holds exactly the position, height and distance it already has, behind and to the right of <Subject 1>, matching his pace, framing head to waist. For the first three seconds nothing changes: no new object enters the frame, the light does not shift, and he does not stop, turn around or reach the glass. His breathing is fast and shaky.\\r\\n\\r\\nAt 00:01.520: [speaking, Brazilian Portuguese, adult male voice, natural Brazilian accent, realistic cinematic film dialogue, frightened and breathless, low and unsteady, close and intimate] \\\"Pelo visto, o William vai ensinar vídeos longos no Minimax H3.\\\"\\r\\n00:03.920-00:05.420: He stops beside the nearest capsule, still talking, and slowly turns around to face the lens, his eyes drifting toward the glowing glass on the wall beside him. Green light washes over his face.\\r\\n00:05.420-00:06.320: The camera pushes in slowly from head-to-waist into a tight close-up of his face, the green glow on one cheek, eyes wide, jaw trembling.\\r\\nAt 00:06.320: [speaking, Brazilian Portuguese, same voice, whispering and trembling] \\\"Isso tá me assustando muito.\\\"\\r\\n00:07.000-00:08.000: The close-up holds. He breathes hard, the green light flickers across his face, and nothing else changes.\\r\\n\\r\\nHe does not walk on, does not open or touch any capsule, does not smile or laugh. After the push-in the framing does not widen again and the camera does not circle.\\r\\n\\r\\noverall_soundscape:\\r\\nFootsteps slowing and stopping on wet concrete, lamps buzzing, soft bubbling inside the capsules, his fast shaky breathing, the voice close and dry.\\r\\n\\r\\nnon_diegetic_music:\\r\\nN/A\"}}]},{\"id\":\"d15f065c-25c4-4922-8570-01dde0d3caf0\",\"name\":\"Video 0\",\"type\":\"video\",\"color\":\"var(--primary)\",\"muted\":false,\"solo\":false,\"volume_db\":0,\"locked\":false,\"segments\":[],\"audio_locked\":false},{\"id\":\"842b9161-3608-4ad4-9a8c-c8d21afc1b95\",\"name\":\"Audio 0\",\"type\":\"audio\",\"color\":\"var(--highlight)\",\"muted\":false,\"solo\":false,\"volume_db\":0,\"locked\":false,\"segments\":[],\"audio_locked\":false}],\"total_length\":768,\"frame_rate\":24}"
+      ],
+      "widgets_values_named": {
+        "resolution": "width x height (megapixels)",
+        "resolution.aspect_ratio": "16:9 (Widescreen)",
+        "resolution.megapixels": 1.2,
+        "format": "MiniMax",
+        "track_data": "{\"muted\":false,\"volume_db\":0,\"task_markers\":[],\"task_overview\":false,\"tracks\":[{\"id\":\"c64f6cef-34eb-4602-820a-defc4ced0f45\",\"name\":\"Task 0\",\"type\":\"task\",\"task_mode\":\"default\",\"color\":\"var(--multitrack-task-bg)\",\"muted\":false,\"solo\":false,\"volume_db\":0,\"locked\":false,\"segments\":[{\"id\":\"2b149dc8-8909-4aca-ba45-6056a98f5476\",\"start_frame\":0,\"end_frame\":192,\"color\":\"var(--multitrack-task-bg)\",\"content\":{\"media_type\":\"none\",\"task_mode\":\"ref\",\"continuity_mode\":\"shot\",\"ref_image_size\":\"match\",\"images\":[{\"id\":\"e5083e80-cf15-4c75-84cc-47c0512ff1c1\",\"source_type\":\"input\",\"file_path\":\"willian-ia.png\",\"file_name\":\"willian-ia.png\",\"shared_reference\":true}],\"muted\":false,\"volume_db\":0,\"user_prompt\":\"subject_definitions:\\r\\n<Subject 1> is the man whose face and hair come entirely from <Picture 1>. He wears a plain dark jacket over a grey t-shirt, no accessories.\\r\\n\\r\\nsummary:\\r\\n[reference generation] One unbroken Steadicam shot following <Subject 1> from behind. He hurries, frightened and desperate, down a dim sterile passage toward two heavy steel doors, shoves them open and steps into a dark survival-horror laboratory. The lamps down the corridor ahead ignite one by one as he walks. He is still walking forward, mid-stride, when the segment ends.\\r\\n\\r\\nretention_analysis:\\r\\n<Subject 1> (appears in [Shot 1]): fully_preserved - face and hair follow <Picture 1> exactly, with the same jacket and t-shirt throughout.\\r\\n\\r\\ndetailed_description:\\r\\n[Shot 1] Steadicam follow shot from directly behind and slightly to the right of <Subject 1>, at shoulder height, framing head to waist, never wider and never tighter, no pans, no tilts, the camera matching his pace. A sterile underground research facility: wet concrete floor, brushed-steel walls, recessed ceiling lamps, dust hanging in the air, no logos and no readable signs. At the end of the passage, two heavy steel doors lit by a single red light. Low-key lighting: the lamps stay off until he brings them on.\\r\\n\\r\\n00:00.000-00:01.200: <Subject 1> hurries along the passage toward the steel doors, walking fast and almost running, breathing hard, shoulders tight, clearly desperate.\\r\\n00:01.200-00:02.800: He shoves both doors open with his full weight and steps through into the dark laboratory beyond.\\r\\n00:02.800-00:04.000: Darkness. One lamp far down the corridor buzzes and flickers on.\\r\\n00:04.000-00:06.000: More lamps ignite one by one down the corridor ahead of him, each with a buzz and a flicker, pooling light on the wet floor.\\r\\n00:06.000-00:08.000: He keeps walking forward through the lit pools while the lamps further ahead keep igniting, toward a faint green glow at the far end. At 00:08.000 he is still walking forward, mid-stride, nothing else in progress.\\r\\n\\r\\nHe does not stop or turn around in this segment. No one else appears. No dialogue, only breathing and footsteps. The camera does not push in, pan or tilt.\\r\\n\\r\\noverall_soundscape:\\r\\nEchoing footsteps on wet concrete, his fast uneven breathing, the groan of the heavy steel doors, the buzz, tick and flicker of each lamp igniting, a low hum from the facility.\\r\\n\\r\\nnon_diegetic_music:\\r\\nN/A\"}},{\"id\":\"8c043c0e-9b1f-4fa4-96c7-96d4f2d4e98f\",\"start_frame\":192,\"end_frame\":384,\"color\":\"var(--multitrack-task-bg)\",\"content\":{\"media_type\":\"none\",\"task_mode\":\"ref\",\"continuity_mode\":\"context\",\"ref_image_size\":\"match\",\"images\":[{\"id\":\"49c443cd-e2ac-4451-8e13-01b011aa805a\",\"source_type\":\"input\",\"file_path\":\"willian-ia.png\",\"file_name\":\"willian-ia.png\",\"shared_reference\":true,\"shared_reference_copy\":true}],\"muted\":false,\"volume_db\":0,\"user_prompt\":\"subject_definitions:\\r\\n<Subject 1> is the man whose face and hair come entirely from <Picture 1>. Same plain dark jacket and grey t-shirt as before.\\r\\n\\r\\nsummary:\\r\\n[reference generation] The same unbroken shot continues. <Subject 1> keeps walking down the corridor while the lamps ignite one after another toward the far end. Glass capsules appear along both walls, each holding a dim figure of his own build. He slows and turns his head toward the capsules on the left, eyes widening. He is still walking when the segment ends.\\r\\n\\r\\nretention_analysis:\\r\\n<Subject 1> (appears in [Shot 1]): fully_preserved - face and hair follow <Picture 1> exactly, jacket and t-shirt unchanged.\\r\\n\\r\\ndetailed_description:\\r\\n[Shot 1] The video opens already in progress, mid-stride. The camera holds exactly the position, height and distance it already has, behind and to the right of <Subject 1>, matching his pace and framing head to waist. He keeps moving at exactly the same pace through the space he is already in, the light on him unchanged. For the first three seconds nothing changes: no new object enters the frame, the light does not shift, and he does not stop, turn around or reach the glass. His breathing stays fast and his shoulders rise and fall with each step.\\r\\n\\r\\n00:03.920-00:05.420: Far ahead, the lamps keep igniting one after another toward the end of the corridor, each with a buzz and a flicker, pushing the light deeper.\\r\\n00:05.420-00:06.920: In that new light, glass capsules come into view set into both walls at head height, filled with green-tinted fluid that glows. A dim figure floats inside each one, the same build and hair as <Subject 1>, faces softened by the glass and the fluid, bubbles rising.\\r\\n00:06.920-00:08.000: He slows his pace and turns his head toward the capsules on the left wall, eyes widening. At 00:08.000 he is still walking slowly, head turned toward the left wall, nothing else in progress.\\r\\n\\r\\nHe does not reach a capsule or touch the glass in this segment, does not stop, does not speak. The camera does not push in, pan or tilt.\\r\\n\\r\\noverall_soundscape:\\r\\nLamps buzzing and ticking as they ignite, echoing footsteps, bubbling inside the capsules, a low electrical hum growing louder, his uneven breathing.\\r\\n\\r\\nnon_diegetic_music:\\r\\nN/A\"}},{\"id\":\"9265d716-790a-451a-a82e-7c80e6fc6ab9\",\"start_frame\":384,\"end_frame\":576,\"color\":\"var(--multitrack-task-bg)\",\"content\":{\"media_type\":\"none\",\"task_mode\":\"ref\",\"continuity_mode\":\"context\",\"ref_image_size\":\"match\",\"images\":[{\"id\":\"f7a3e8b4-9204-473c-83cd-14c3dc36c369\",\"source_type\":\"input\",\"file_path\":\"willian-ia.png\",\"file_name\":\"willian-ia.png\",\"shared_reference\":true,\"shared_reference_copy\":true}],\"muted\":false,\"volume_db\":0,\"user_prompt\":\"subject_definitions:\\r\\n<Subject 1> is the man whose face and hair come entirely from <Picture 1>. Same plain dark jacket and grey t-shirt as before.\\r\\n\\r\\nsummary:\\r\\n[reference generation] The same unbroken shot continues. <Subject 1> walks slowly past the row of capsules, flinches at the dim figures floating inside them and says, in Brazilian Portuguese, that he did not know he had so many clones. The lamps keep lighting the corridor ahead. He is still walking slowly, eyes on the capsules, when the segment ends.\\r\\n\\r\\nretention_analysis:\\r\\n<Subject 1> (appears in [Shot 1]): fully_preserved - face and hair follow <Picture 1> exactly, jacket and t-shirt unchanged.\\r\\n\\r\\ndetailed_description:\\r\\n[Shot 1] The video opens already in progress, mid-stride, still walking slowly with his head turned toward the left wall. The camera holds exactly the position, height and distance it already has, behind and to the right of <Subject 1>, matching his slow pace, framing head to waist. For the first three seconds nothing changes: no new object enters the frame, the light does not shift, and he does not stop, turn around or start toward the glass. He keeps looking to the left as the capsules slide past.\\r\\n\\r\\n00:03.920-00:05.420: He passes the first capsule on his left. The figure inside hangs still behind the glass, eyes closed. His shoulders jerk as he flinches, but he keeps walking.\\r\\nAt 00:04.320: [speaking, Brazilian Portuguese, adult male voice, natural Brazilian accent, realistic cinematic film dialogue, frightened and breathless, low and unsteady, close and intimate] \\\"Cara, eu não sabia que eu tinha tantos clones.\\\"\\r\\n00:05.420-00:06.920: The row of capsules runs on down both walls under the lamps, each figure dim and blurred, each one another copy of him.\\r\\n00:06.920-00:08.000: He keeps his slow pace, eyes on the capsules, breath short. At 00:08.000 he is still walking slowly, eyes on the capsules, nothing else in progress.\\r\\n\\r\\nHe does not stop, does not open or touch any capsule, does not look straight into the lens. The camera does not push in or pan. No one else appears.\\r\\n\\r\\noverall_soundscape:\\r\\nSoft footsteps on wet concrete, bubbling fluid inside the capsules, a low electrical hum, his short breaths, his voice close and slightly dry.\\r\\n\\r\\nnon_diegetic_music:\\r\\nN/A\"}},{\"id\":\"3550f4aa-6dd3-4fc1-a793-c6bab7b5ea87\",\"start_frame\":576,\"end_frame\":768,\"color\":\"var(--multitrack-task-bg)\",\"content\":{\"media_type\":\"none\",\"task_mode\":\"ref\",\"continuity_mode\":\"context\",\"ref_image_size\":\"match\",\"images\":[{\"id\":\"e070db28-bfe9-49df-ba97-384231c51734\",\"source_type\":\"input\",\"file_path\":\"willian-ia.png\",\"file_name\":\"willian-ia.png\",\"shared_reference\":true,\"shared_reference_copy\":true}],\"muted\":false,\"volume_db\":0,\"user_prompt\":\"subject_definitions:\\r\\n<Subject 1> is the man whose face and hair come entirely from <Picture 1>. Same plain dark jacket and grey t-shirt as before.\\r\\n\\r\\nsummary:\\r\\n[reference generation] The same unbroken shot continues to the end. <Subject 1> keeps walking past the capsules while he speaks in Brazilian Portuguese, then stops, turns around to face the lens and stares at the glowing glass beside him. The camera pushes in to a tight close-up of his face as he says that all of this is scaring him. The close-up holds to the end.\\r\\n\\r\\nretention_analysis:\\r\\n<Subject 1> (appears in [Shot 1]): fully_preserved - face and hair follow <Picture 1> exactly, jacket and t-shirt unchanged.\\r\\n\\r\\ndetailed_description:\\r\\n[Shot 1] The video opens already in progress, mid-stride, still walking slowly past the capsules. The camera holds exactly the position, height and distance it already has, behind and to the right of <Subject 1>, matching his pace, framing head to waist. For the first three seconds nothing changes: no new object enters the frame, the light does not shift, and he does not stop, turn around or reach the glass. His breathing is fast and shaky.\\r\\n\\r\\nAt 00:01.520: [speaking, Brazilian Portuguese, adult male voice, natural Brazilian accent, realistic cinematic film dialogue, frightened and breathless, low and unsteady, close and intimate] \\\"Pelo visto, o William vai ensinar vídeos longos no Minimax H3.\\\"\\r\\n00:03.920-00:05.420: He stops beside the nearest capsule, still talking, and slowly turns around to face the lens, his eyes drifting toward the glowing glass on the wall beside him. Green light washes over his face.\\r\\n00:05.420-00:06.320: The camera pushes in slowly from head-to-waist into a tight close-up of his face, the green glow on one cheek, eyes wide, jaw trembling.\\r\\nAt 00:06.320: [speaking, Brazilian Portuguese, same voice, whispering and trembling] \\\"Isso tá me assustando muito.\\\"\\r\\n00:07.000-00:08.000: The close-up holds. He breathes hard, the green light flickers across his face, and nothing else changes.\\r\\n\\r\\nHe does not walk on, does not open or touch any capsule, does not smile or laugh. After the push-in the framing does not widen again and the camera does not circle.\\r\\n\\r\\noverall_soundscape:\\r\\nFootsteps slowing and stopping on wet concrete, lamps buzzing, soft bubbling inside the capsules, his fast shaky breathing, the voice close and dry.\\r\\n\\r\\nnon_diegetic_music:\\r\\nN/A\"}}]},{\"id\":\"d15f065c-25c4-4922-8570-01dde0d3caf0\",\"name\":\"Video 0\",\"type\":\"video\",\"color\":\"var(--primary)\",\"muted\":false,\"solo\":false,\"volume_db\":0,\"locked\":false,\"segments\":[],\"audio_locked\":false},{\"id\":\"842b9161-3608-4ad4-9a8c-c8d21afc1b95\",\"name\":\"Audio 0\",\"type\":\"audio\",\"color\":\"var(--highlight)\",\"muted\":false,\"solo\":false,\"volume_db\":0,\"locked\":false,\"segments\":[],\"audio_locked\":false}],\"total_length\":768,\"frame_rate\":24}"
+      }
+    },
+    {
+      "id": 17,
+      "type": "easy multitrackProjectVideoCombine",
+      "pos": [
+        4224.05126953125,
+        2441.240234375
+      ],
+      "size": [
+        851.901123046875,
+        795.3773803710938
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "project_name",
+          "name": "project_name",
+          "type": "STRING",
+          "link": 19
+        },
+        {
+          "label": "project_data",
+          "name": "project_data",
+          "type": "PROJECT_DATA",
+          "widget": {
+            "name": "project_data"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "VIDEO",
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            73
+          ]
+        },
+        {
+          "label": "FILENAME_PREFIX",
+          "name": "FILENAME_PREFIX",
+          "type": "STRING",
+          "links": [
+            40
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-media",
+        "ver": "5739638c646a66a93d60c51714593b2b96a2a3b6",
+        "Node name for S&R": "easy multitrackProjectVideoCombine",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "project_data": true
+          },
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {}
+      },
+      "widgets_values": [
+        "{\"project_name\":\"longtake_demo\",\"width\":1504,\"height\":832,\"frame_rate\":24,\"clips\":[{\"id\":\"segment-0\",\"index\":0,\"file_path\":\"easy_media/projects/longtake_demo/video_0_1.mp4\",\"file_name\":\"video_0_1.mp4\",\"media_revision\":\"1792173234480999400\",\"source_start_frame\":0,\"source_end_frame\":192,\"source_frame_count\":192,\"updated_at\":1792173242.8061702,\"continuity_mode\":\"shot\",\"audio_locked\":false,\"enabled\":true,\"video_files\":[{\"file_path\":\"easy_media/projects/longtake_demo/video_0_1.mp4\",\"file_name\":\"video_0_1.mp4\",\"media_revision\":\"1792173234480999400\",\"source_frame_count\":192,\"continuity_mode\":\"shot\"}]},{\"id\":\"segment-1\",\"index\":1,\"file_path\":\"easy_media/projects/longtake_demo/video_1_1.mp4\",\"file_name\":\"video_1_1.mp4\",\"media_revision\":\"1792174398689053800\",\"source_start_frame\":0,\"source_end_frame\":192,\"source_frame_count\":192,\"updated_at\":1792174415.68893,\"continuity_mode\":\"context\",\"audio_locked\":false,\"enabled\":true,\"video_files\":[{\"file_path\":\"easy_media/projects/longtake_demo/video_1_1.mp4\",\"file_name\":\"video_1_1.mp4\",\"media_revision\":\"1792174398689053800\",\"source_frame_count\":192,\"continuity_mode\":\"context\"}]},{\"id\":\"segment-2\",\"index\":2,\"file_path\":\"easy_media/projects/longtake_demo/video_2_1.mp4\",\"file_name\":\"video_2_1.mp4\",\"media_revision\":\"1792175572998397700\",\"source_start_frame\":0,\"source_end_frame\":192,\"source_frame_count\":192,\"updated_at\":1792175590.0524347,\"continuity_mode\":\"context\",\"audio_locked\":false,\"enabled\":true,\"video_files\":[{\"file_path\":\"easy_media/projects/longtake_demo/video_2_1.mp4\",\"file_name\":\"video_2_1.mp4\",\"media_revision\":\"1792175572998397700\",\"source_frame_count\":192,\"continuity_mode\":\"context\"}]},{\"id\":\"segment-3\",\"index\":3,\"file_path\":\"easy_media/projects/longtake_demo/video_3_1.mp4\",\"file_name\":\"video_3_1.mp4\",\"media_revision\":\"1792176719395950000\",\"source_start_frame\":0,\"source_end_frame\":192,\"source_frame_count\":192,\"updated_at\":1792176734.8835578,\"continuity_mode\":\"context\",\"audio_locked\":false,\"enabled\":true,\"video_files\":[{\"file_path\":\"easy_media/projects/longtake_demo/video_3_1.mp4\",\"file_name\":\"video_3_1.mp4\",\"media_revision\":\"1792176719395950000\",\"source_frame_count\":192,\"continuity_mode\":\"context\"}]}],\"auto_combine\":true,\"updated_at\":1792176734.8835578}"
+      ],
+      "widgets_values_named": {
+        "project_data": "{\"project_name\":\"longtake_demo\",\"width\":1504,\"height\":832,\"frame_rate\":24,\"clips\":[{\"id\":\"segment-0\",\"index\":0,\"file_path\":\"easy_media/projects/longtake_demo/video_0_1.mp4\",\"file_name\":\"video_0_1.mp4\",\"media_revision\":\"1792173234480999400\",\"source_start_frame\":0,\"source_end_frame\":192,\"source_frame_count\":192,\"updated_at\":1792173242.8061702,\"continuity_mode\":\"shot\",\"audio_locked\":false,\"enabled\":true,\"video_files\":[{\"file_path\":\"easy_media/projects/longtake_demo/video_0_1.mp4\",\"file_name\":\"video_0_1.mp4\",\"media_revision\":\"1792173234480999400\",\"source_frame_count\":192,\"continuity_mode\":\"shot\"}]},{\"id\":\"segment-1\",\"index\":1,\"file_path\":\"easy_media/projects/longtake_demo/video_1_1.mp4\",\"file_name\":\"video_1_1.mp4\",\"media_revision\":\"1792174398689053800\",\"source_start_frame\":0,\"source_end_frame\":192,\"source_frame_count\":192,\"updated_at\":1792174415.68893,\"continuity_mode\":\"context\",\"audio_locked\":false,\"enabled\":true,\"video_files\":[{\"file_path\":\"easy_media/projects/longtake_demo/video_1_1.mp4\",\"file_name\":\"video_1_1.mp4\",\"media_revision\":\"1792174398689053800\",\"source_frame_count\":192,\"continuity_mode\":\"context\"}]},{\"id\":\"segment-2\",\"index\":2,\"file_path\":\"easy_media/projects/longtake_demo/video_2_1.mp4\",\"file_name\":\"video_2_1.mp4\",\"media_revision\":\"1792175572998397700\",\"source_start_frame\":0,\"source_end_frame\":192,\"source_frame_count\":192,\"updated_at\":1792175590.0524347,\"continuity_mode\":\"context\",\"audio_locked\":false,\"enabled\":true,\"video_files\":[{\"file_path\":\"easy_media/projects/longtake_demo/video_2_1.mp4\",\"file_name\":\"video_2_1.mp4\",\"media_revision\":\"1792175572998397700\",\"source_frame_count\":192,\"continuity_mode\":\"context\"}]},{\"id\":\"segment-3\",\"index\":3,\"file_path\":\"easy_media/projects/longtake_demo/video_3_1.mp4\",\"file_name\":\"video_3_1.mp4\",\"media_revision\":\"1792176719395950000\",\"source_start_frame\":0,\"source_end_frame\":192,\"source_frame_count\":192,\"updated_at\":1792176734.8835578,\"continuity_mode\":\"context\",\"audio_locked\":false,\"enabled\":true,\"video_files\":[{\"file_path\":\"easy_media/projects/longtake_demo/video_3_1.mp4\",\"file_name\":\"video_3_1.mp4\",\"media_revision\":\"1792176719395950000\",\"source_frame_count\":192,\"continuity_mode\":\"context\"}]}],\"auto_combine\":true,\"updated_at\":1792176734.8835578}"
+      }
+    },
+    {
+      "id": 25,
+      "type": "easy saveVideo",
+      "pos": [
+        5209.494140625,
+        2598.841796875
+      ],
+      "size": [
+        267.2890625,
+        291.18459302325584
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "input_mode",
+          "name": "input_mode",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "input_mode"
+          },
+          "link": null
+        },
+        {
+          "name": "input_mode.video",
+          "type": "VIDEO",
+          "link": 73
+        },
+        {
+          "name": "input_mode.audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "label": "output_mode",
+          "name": "output_mode",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "output_mode"
+          },
+          "link": null
+        },
+        {
+          "label": "filename_prefix",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": 40
+        }
+      ],
+      "outputs": [
+        {
+          "label": "VIDEO",
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": []
+        },
+        {
+          "label": "file_path",
+          "name": "file_path",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-media",
+        "ver": "e1893122c0e5a26d3544e99e4b35124d64901e66",
+        "Node name for S&R": "easy saveVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "filename_prefix": true,
+            "output_mode": true,
+            "input_mode": true
+          },
+          "input_ue_unconnectable": {},
+          "version": "7.8"
+        },
+        "widget_ue_connectable": {
+          "filename_prefix": true
+        }
+      },
+      "widgets_values": [
+        "video",
+        "save",
+        "ComfyUI",
+        "ComfyUI"
+      ],
+      "widgets_values_named": {
+        "input_mode": "video",
+        "output_mode": "save",
+        "output_mode.save_metadata": "ComfyUI",
+        "filename_prefix": "ComfyUI"
+      }
+    },
+    {
+      "id": 35,
+      "type": "SaveVideo",
+      "pos": [
+        5347.032225602751,
+        2301.14221968796
+      ],
+      "size": [
+        350,
+        192
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 4,
+      "inputs": [
+        {
+          "label": "video",
+          "name": "video",
+          "type": "VIDEO",
+          "link": null
+        },
+        {
+          "label": "filename_prefix",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        },
+        {
+          "label": "format",
+          "name": "format",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "format"
+          },
+          "link": null
+        },
+        {
+          "label": "codec",
+          "name": "codec",
+          "shape": 7,
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "codec"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "video_url",
+          "name": "video",
+          "type": "VIDEO",
+          "links": null
+        },
+        {
+          "label": "video",
+          "name": "video",
+          "type": "VIDEO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.41.1",
+        "widget_ue_connectable": {},
+        "Node name for S&R": "SaveVideo"
+      },
+      "widgets_values": [
+        "video/ComfyUI",
+        "auto",
+        "auto",
+        "auto"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "video/ComfyUI",
+        "format": "auto",
+        "format.codec": "auto",
+        "codec": "auto"
+      }
+    }
+  ],
+  "links": [
+    [
+      19,
+      15,
+      0,
+      17,
+      0,
+      "STRING"
+    ],
+    [
+      21,
+      2,
+      0,
+      16,
+      2,
+      "VAE"
+    ],
+    [
+      22,
+      10,
+      0,
+      16,
+      1,
+      "CLIP"
+    ],
+    [
+      36,
+      6,
+      0,
+      21,
+      0,
+      "MODEL"
+    ],
+    [
+      50,
+      21,
+      0,
+      16,
+      0,
+      "MODEL"
+    ],
+    [
+      51,
+      11,
+      0,
+      13,
+      0,
+      "MODEL"
+    ],
+    [
+      56,
+      11,
+      0,
+      27,
+      0,
+      "MODEL"
+    ],
+    [
+      59,
+      1,
+      0,
+      16,
+      3,
+      "VAE"
+    ],
+    [
+      62,
+      27,
+      0,
+      6,
+      0,
+      "MODEL"
+    ],
+    [
+      72,
+      21,
+      0,
+      22,
+      0,
+      "MODEL"
+    ],
+    [
+      60,
+      29,
+      0,
+      15,
+      0,
+      "TRACKS_INFO"
+    ],
+    [
+      18,
+      16,
+      0,
+      15,
+      1,
+      "FAST_MODEL_LOADER"
+    ],
+    [
+      70,
+      20,
+      0,
+      15,
+      3,
+      "SAMPLER"
+    ],
+    [
+      71,
+      24,
+      0,
+      15,
+      4,
+      "SAMPLER"
+    ],
+    [
+      68,
+      22,
+      0,
+      15,
+      5,
+      "SIGMAS"
+    ],
+    [
+      69,
+      33,
+      0,
+      15,
+      6,
+      "SIGMAS"
+    ],
+    [
+      73,
+      17,
+      0,
+      25,
+      1,
+      "VIDEO"
+    ],
+    [
+      40,
+      17,
+      1,
+      25,
+      4,
+      "STRING"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Load Diffusion Model  / Text encoder  / Vae",
+      "bounding": [
+        3070.569580078125,
+        1669.6591796875,
+        713.8042602539062,
+        622.4448852539062
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "Sampling — single pass, set steps on the green node",
+      "bounding": [
+        3826.552978515625,
+        1633.705078125,
+        602.00390625,
+        351.24041748046875
+      ],
+      "color": "#8A8",
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "Sampling — single pass, set steps on the green node",
+      "bounding": [
+        3828.7548828125,
+        2024.559326171875,
+        602.11572265625,
+        280.5751647949219
+      ],
+      "color": "#8A8",
+      "flags": {}
+    },
+    {
+      "id": 4,
+      "title": "Easy H3 Project with MultiTrack Editor (All-in-one)",
+      "bounding": [
+        3072.19775390625,
+        2346.38720703125,
+        2013.0943603515625,
+        935.3387451171875
+      ],
+      "color": "#A88",
+      "flags": {}
+    },
+    {
+      "id": 5,
+      "title": "Preview",
+      "bounding": [
+        4463.2822265625,
+        1629.0355224609375,
+        538.4097290039062,
+        690.3204956054688
+      ],
+      "color": "#a1309b",
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "VHS_KeepIntermediate": true,
+    "links_added_by_ue": [],
+    "anomalous_hashes": {
+      "10_qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors": {
+        "size": 15687142551,
+        "hash": ""
+      },
+      "6_minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors": {
+        "size": 1956193000,
+        "hash": ""
+      },
+      "21_taeh3.safetensors": {
+        "size": 9791388,
+        "hash": ""
+      },
+      "2_minimax_h3_video_vae_int8_convrot.safetensors": {
+        "size": 3171670912,
+        "hash": ""
+      },
+      "1_minimax_h3_audio_vae_fp32.safetensors": {
+        "size": 605254808,
+        "hash": ""
+      },
+      "11_Minimax-h3_Singularity_ref2va_v1.3_int8.safetensors": {
+        "size": 34004507622,
+        "hash": ""
+      }
+    },
+    "ue_links": [],
+    "VHS_MetadataImage": true,
+    "0246.VERSION": [
+      0,
+      0,
+      4
+    ],
+    "VHS_latentpreviewrate": 0,
+    "frontendVersion": "1.55.17",
+    "VHS_latentpreview": false,
+    "ds": {
+      "scale": 0.5445000000000063,
+      "offset": [
+        -2260.5938356414067,
+        -1482.4066535680774
+      ]
+    }
+  },
+  "version": 0.4
+}

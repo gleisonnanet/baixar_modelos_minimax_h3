@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guia MiniMax H3 - Vídeos longos no ComfyUI</title>
+<meta name="description" content="Passo a passo para instalar e rodar o workflow MiniMax H3 Motion Context V2 no ComfyUI, sem Manager.">
+<style>
+:root{
+  --bg:#07090A; --bg2:#0D1014; --card:#10141A; --line:rgba(255,255,255,.09);
+  --text:#EDEFF2; --muted:#9099A8; --blue:#0053FF; --blue-soft:#4D86FF; --green:#17CE73; --amber:#F2B84B; --red:#FF6B6B;
+  --code:#0A0D11; --radius:14px;
+  --head:Impact,"Haettenschweiler","Arial Narrow Bold","Arial Narrow",sans-serif;
+  --body:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  --mono:"Cascadia Mono",Consolas,"SFMono-Regular",Menlo,monospace;
+}
+:root[data-theme="light"]{
+  --bg:#F5F6F8; --bg2:#EBEDF1; --card:#FFFFFF; --line:rgba(10,20,40,.12);
+  --text:#12161C; --muted:#586172; --blue:#0049E0; --blue-soft:#0049E0; --green:#0B8F4E; --amber:#9A6200; --red:#C23030;
+  --code:#F0F2F6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 var(--body);-webkit-font-smoothing:antialiased}
+a{color:var(--blue-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--blue-soft);outline-offset:2px;border-radius:6px}
+code,pre{font-family:var(--mono)}
+.skip{position:absolute;left:-999px}
+.skip:focus{left:16px;top:16px;background:var(--card);padding:8px 12px;border-radius:8px;z-index:50}
+
+/* hero: mesmo azul e degradê das thumbnails do canal */
+.hero{
+  background:linear-gradient(180deg,#0053FF 0%,#0053FF 42%,#0040BC 66%,#02204C 82%,var(--bg) 100%);
+  padding:28px 24px 96px;color:#fff;
+}
+:root[data-theme="light"] .hero{background:linear-gradient(180deg,#0053FF 0%,#0053FF 55%,#1F6BFF 80%,var(--bg) 100%)}
+.hero-in{max-width:1120px;margin:0 auto}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.02em}
+.brand svg,.brand img{width:34px;height:42px;display:block}
+.tools{display:flex;gap:8px}
+.btn{
+  appearance:none;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;
+  padding:8px 14px;border-radius:999px;font:600 13px var(--body);cursor:pointer;transition:background .15s
+}
+.btn:hover{background:rgba(255,255,255,.18)}
+h1{
+  font:400 clamp(46px,9vw,104px)/.95 var(--head);text-transform:uppercase;letter-spacing:.01em;margin:56px 0 18px;max-width:900px
+}
+.lead{font-size:clamp(17px,2.2vw,21px);max-width:640px;color:rgba(255,255,255,.92);margin:0 0 26px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 13px;font-size:13px;font-weight:600;background:rgba(0,0,0,.18)}
+
+.wrap{max-width:1120px;margin:-48px auto 0;padding:0 24px 80px;display:grid;grid-template-columns:230px 1fr;gap:40px;position:relative}
+nav.side{position:sticky;top:20px;align-self:start;padding-top:56px;min-width:0}
+.prog{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin-bottom:18px}
+.prog b{font-size:13px;color:var(--muted);font-weight:600;display:flex;justify-content:space-between}
+.bar{height:6px;border-radius:99px;background:var(--bg2);margin-top:9px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
+.nav a{display:flex;gap:10px;padding:8px 10px;border-radius:9px;color:var(--muted);font-size:14.5px;font-weight:500;text-decoration:none}
+.nav a span{font:400 13px var(--mono);opacity:.7;min-width:22px}
+.nav a:hover{background:var(--bg2);color:var(--text)}
+.nav a.on{background:var(--bg2);color:var(--text)}
+.nav a.on span{color:var(--blue-soft);opacity:1}
+
+main{min-width:0;padding-top:56px}
+section{padding:8px 0 46px;border-top:1px solid var(--line);margin-top:6px}
+section:first-of-type{border-top:0;margin-top:0}
+.eyebrow{font:400 13px var(--mono);color:var(--blue-soft);letter-spacing:.08em;text-transform:uppercase;margin:34px 0 4px}
+h2{font:400 clamp(30px,4.4vw,44px)/1.05 var(--head);text-transform:uppercase;margin:0 0 14px;letter-spacing:.01em}
+h3{font-size:17px;margin:26px 0 8px}
+p{margin:0 0 14px;color:var(--text)}
+.muted{color:var(--muted)}
+ul{padding-left:20px;margin:0 0 14px}
+li{margin:4px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:14px 0}
+.note{border-left:3px solid var(--blue);background:var(--card);border-radius:0 var(--radius) var(--radius) 0;padding:12px 16px;margin:14px 0;font-size:15px}
+.note.warn{border-color:var(--amber)} .note.bad{border-color:var(--red)} .note.ok{border-color:var(--green)}
+.note b:first-child{display:block;margin-bottom:2px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:6px 16px;font-size:15px}
+.kv dt{color:var(--muted)} .kv dd{margin:0}
+
+/* checklist */
+.chk{display:flex;gap:12px;align-items:flex-start;padding:12px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+.chk:last-child{border-bottom:0}
+.chk input{appearance:none;flex:none;width:22px;height:22px;border:2px solid var(--muted);border-radius:7px;margin-top:2px;display:grid;place-content:center;cursor:pointer;transition:.15s}
+.chk input:checked{background:var(--green);border-color:var(--green)}
+.chk input:checked::after{content:"";width:6px;height:11px;border:solid #04150B;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.chk .t{flex:1}
+.chk .t small{display:block;color:var(--muted);font-size:14px}
+.chk input:checked ~ .t strong{text-decoration:line-through;text-decoration-color:var(--muted);color:var(--muted)}
+
+/* comandos */
+.cmdbox{position:relative;margin:10px 0 14px}
+pre.cmd{margin:0;background:var(--code);border:1px solid var(--line);border-radius:12px;padding:14px 92px 14px 16px;overflow:auto;font-size:13.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.rootbox{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px 16px;margin:12px 0}
+.rootbox label{font-weight:600;font-size:14px}
+.rootbox input{flex:1;min-width:240px;background:var(--code);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:9px 12px;font:14px var(--mono)}
+.rootstatus{font-size:14.5px;font-weight:600;margin:-4px 0 14px;padding-left:2px}
+.rootstatus.ok{color:var(--green)} .rootstatus.warn{color:var(--amber)} .rootstatus.bad{color:var(--red)}
+.copy{position:absolute;top:9px;right:9px;font:600 12px var(--body);color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 11px;cursor:pointer}
+.copy:hover{border-color:var(--blue-soft)}
+.copy.done{color:#04150B;background:var(--green);border-color:var(--green)}
+
+/* tabelas */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:640px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font:600 12px var(--body);text-transform:uppercase;letter-spacing:.07em;color:var(--muted);background:var(--bg2)}
+td .file{font:13px var(--mono);word-break:break-all}
+td small{display:block;color:var(--muted);font-size:13px}
+.dl{display:inline-block;background:var(--blue);color:#fff!important;padding:6px 13px;border-radius:9px;font-weight:600;font-size:13px;text-decoration:none!important;white-space:nowrap}
+.dl:hover{filter:brightness(1.12)}
+.tag{display:inline-block;font:600 11px var(--body);padding:2px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted);vertical-align:middle;margin-left:6px;text-transform:uppercase;letter-spacing:.05em}
+.tag.g{color:var(--green);border-color:var(--green)} .tag.a{color:var(--amber);border-color:var(--amber)} .tag.r{color:var(--red);border-color:var(--red)}
+
+/* abas */
+.tabs{display:flex;gap:6px;margin:14px 0 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tabs button{background:none;border:0;color:var(--muted);font:600 15px var(--body);padding:10px 16px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--text);border-color:var(--blue-soft)}
+.panel[hidden]{display:none}
+
+details{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin:10px 0;padding:0 18px}
+summary{cursor:pointer;padding:14px 0;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:400 22px/1 var(--mono);color:var(--muted)}
+details[open] summary::after{content:"\2212"}
+details > div{padding:0 0 14px}
+.steps{counter-reset:s;list-style:none;padding:0;margin:12px 0}
+.steps > li{counter-increment:s;position:relative;padding:4px 0 14px 46px;margin:0}
+.steps > li::before{content:counter(s);position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--blue-soft);color:var(--blue-soft);display:grid;place-content:center;font:600 14px var(--body)}
+.links a{display:flex;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid var(--line);color:var(--text)}
+.links a small{color:var(--muted);font-size:13px;word-break:break-all;text-align:right}
+footer{border-top:1px solid var(--line);padding:30px 24px;color:var(--muted);font-size:14px;text-align:center}
+
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr;gap:0}
+  nav.side{position:static;padding-top:48px}
+  .nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;max-width:100%}
+  h1{margin-top:40px}
+  .nav a{white-space:nowrap;border:1px solid var(--line)}
+  .grid2{grid-template-columns:1fr}
+  .kv{grid-template-columns:1fr}
+  .wrap{padding:0 16px 60px}
+  .hero{padding:22px 16px 84px}
+}
+@media print{.hero{background:#0053FF!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}nav.side,.tools,.copy{display:none}.wrap{display:block}}
+</style>
+</head>
+<body>
+<a class="skip" href="#visao">Ir para o conteúdo</a>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="top">
+      <div class="brand" id="brand">
+        <!-- Marca simplificada (chama + chave). Para usar a sua logo real, cole a imagem em CONFIG.logo no final do arquivo. -->
+        <svg id="brandSvg" viewBox="0 0 34 42" aria-hidden="true">
+          <defs><linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#17CE73"/><stop offset="1" stop-color="#0B7F46"/></linearGradient></defs>
+          <path d="M17 1c1 6 8 9 8 17 0 5-3.6 8.5-8 8.5S9 23 9 18c0-3 1.6-5 3-6.6C13.6 9.600 16 7 17 1z" fill="url(#fl)"/>
+          <rect x="15" y="14" width="4" height="22" rx="1.5" fill="#fff"/>
+          <rect x="19" y="17" width="5" height="3" rx="1" fill="#fff"/><rect x="19" y="23" width="4" height="3" rx="1" fill="#fff"/>
+          <circle cx="17" cy="37" r="3.600" fill="none" stroke="#fff" stroke-width="2"/>
+        </svg>
+        <span id="brandName"></span>
+      </div>
+      <div class="tools">
+        <button class="btn" id="themeBtn" type="button">Tema claro</button>
+        <button class="btn" id="resetBtn" type="button">Zerar checklist</button>
+      </div>
+    </div>
+    <h1>Vídeos longos com MiniMax H3</h1>
+    <p class="lead">Instale tudo do zero, sem Manager, e rode o workflow <b>Motion Context V2</b> no ComfyUI e crie vídeos longos, num único plano contínuo, com quantos trechos e a duração que você quiser.</p>
+    <div class="chips">
+      <span class="chip">ComfyUI 0.34+</span>
+      <span class="chip">Sem Manager</span>
+      <span class="chip">Cerca de 55 GB de modelos</span>
+      <span class="chip">NVIDIA testado</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<nav class="side" aria-label="Seções">
+  <div class="prog"><b><span>Seu progresso</span><span id="pct">0%</span></b><div class="bar"><i id="barFill"></i></div></div>
+  <div class="nav" id="nav"></div>
+</nav>
+
+<main>
+
+<section id="visao" data-title="Visão geral">
+  <div class="eyebrow">00</div>
+  <h2>Visão geral</h2>
+  <p>Este workflow cria vídeos longos com o MiniMax H3 encadeando trechos. Cada trecho continua do anterior usando o contexto salvo, e o resultado é um plano contínuo, sem cortes.</p>
+  <div class="note"><b>Sem limite fixo de duração.</b>O workflow de exemplo vem com 3 trechos de 8 segundos (24 s), mas você pode adicionar quantos trechos quiser na timeline do editor e fazer o vídeo durar o tempo que precisar. Na prática, o limite é o seu tempo de geração e o espaço em disco.</div>
+  <div class="grid2">
+    <div class="card"><dl class="kv">
+      <dt>O que gera</dt><dd>vídeo contínuo de qualquer duração, em trechos encadeados (você escolhe quantos)</dd>
+      <dt>Amostragem</dt><dd>passada única, 8 passos, beta + euler</dd>
+      <dt>Modelo</dt><dd>MiniMax H3 Singularity (ref2va) + LoRA turbo de 4 passos</dd>
+      <dt>Motor</dt><dd>pacote Easy-Media (editor multitrilha)</dd>
+    </dl></div>
+    <div class="card"><dl class="kv">
+      <dt>Tempo de preparo</dt><dd>depende dos downloads (cerca de 55 GB)</dd>
+      <dt>Precisa de</dt><dd>1 imagem de referência da personagem</dd>
+      <dt>Saída</dt><dd>pasta <code>output\easy_media\projects\</code></dd>
+      <dt>Ordem</dt><dd>siga os passos de 01 a 10</dd>
+    </dl></div>
+  </div>
+  <div class="note ok"><b>Marque cada etapa que concluir.</b>O progresso fica salvo no seu navegador. Ele é só uma ajuda e não verifica nada no seu PC.</div>
+</section>
+
+<section id="req" data-title="Requisitos">
+  <div class="eyebrow">01</div>
+  <h2>Requisitos mínimos</h2>
+  <div class="note warn"><b>Não existe requisito oficial publicado para o H3.</b>Os valores abaixo vêm de relatos da comunidade e do PC do autor, que rodou este workflow. Trate o mínimo como "possível, mas lento".</div>
+
+  <div class="tabs" role="tablist" aria-label="Tipo de placa de vídeo">
+    <button role="tab" aria-selected="true" aria-controls="p-nv" id="t-nv" type="button">NVIDIA</button>
+    <button role="tab" aria-selected="false" aria-controls="p-amd" id="t-amd" type="button">AMD</button>
+    <button role="tab" aria-selected="false" aria-controls="p-pc" id="t-pc" type="button">PC do autor</button>
+  </div>
+
+  <div class="panel" id="p-nv" role="tabpanel" aria-labelledby="t-nv">
+    <div class="tw"><table>
+      <thead><tr><th>Nível</th><th>Placa</th><th>VRAM</th><th>RAM</th><th>Observação</th></tr></thead>
+      <tbody>
+        <tr><td><b>Mínimo</b><span class="tag a">relato</span></td><td>RTX 3060</td><td>12 GB</td><td>32 GB</td><td>Um mantenedor do ComfyUI rodou o H3 assim (864x480, 124 quadros, 20 passos, menos de 9 min), com muito offload. Use resolução baixa e espere lentidão.</td></tr>
+        <tr><td><b>Recomendado</b><span class="tag g">testado</span></td><td>RTX 5060 Ti</td><td>16 GB</td><td>32 GB DDR4</td><td>É o PC deste guia. O workflow rodou com o modelo podado.</td></tr>
+        <tr><td><b>Ideal</b><span class="tag a">relato</span></td><td>RTX 4090 / 5090 ou similar</td><td>24 GB ou mais</td><td>64 GB</td><td>Segundo guias da comunidade, é onde o modelo podado cabe todo na VRAM.</td></tr>
+      </tbody>
+    </table></div>
+    <ul>
+      <li><b>Sistema:</b> Windows 10 ou 11 de 64 bits, com driver NVIDIA atualizado.</li>
+      <li><b>Placa:</b> para o SageAttention e o Triton, o repositório do triton-windows lista RTX 20, 30, 40 e 50. GTX 10 e mais antigas não são suportadas.</li>
+      <li><b>RTX 50:</b> precisa de PyTorch com CUDA 12.8 ou mais novo (a versão portátil atual já vem assim).</li>
+      <li><b>Disco:</b> os modelos somam cerca de 55 GB. Reserve pelo menos 100 GB livres, de preferência em SSD.</li>
+      <li><b>Internet:</b> para baixar cerca de 55 GB.</li>
+    </ul>
+  </div>
+
+  <div class="panel" id="p-amd" role="tabpanel" aria-labelledby="t-amd" hidden>
+    <div class="note bad"><b>AMD: sem caminho garantido.</b>O autor não testou este workflow em placa AMD. O que existe são relatos soltos.</div>
+    <div class="tw"><table>
+      <thead><tr><th>Cenário</th><th>O que foi relatado</th></tr></thead>
+      <tbody>
+        <tr><td><b>Windows</b><span class="tag r">falha</span></td><td>Um usuário com RX 9070 XT (16 GB), Ryzen 5600X e 32 GB de RAM teve erro de CUDA "invalid argument" ao carregar o VAE de vídeo. Existem builds de ComfyUI com ROCm para Windows feitas por terceiros, mas não verifiquei nenhuma com o H3.</td></tr>
+        <tr><td><b>Linux (ROCm)</b><span class="tag a">1 relato</span></td><td>RX 9070 XT com ROCm 7.2.4, PyTorch 2.9.1, ComfyUI 0.30.2 e a opção <code>--lowvram</code> gerou 5 s em 480p em cerca de 6,7 minutos.</td></tr>
+      </tbody>
+    </table></div>
+    <ul>
+      <li><b>Mínimo para tentar:</b> Radeon RX 9000 (RDNA 4) com 16 GB, 32 GB de RAM, Linux com ROCm 7.</li>
+      <li><b>SageAttention e Triton:</b> o fluxo padrão é para NVIDIA. Em AMD, pule o Passo 05 e tente desativar o nó de SageAttention (Ctrl+B). Não testei o workflow assim.</li>
+      <li>O pacote portátil do ComfyUI para AMD existe nas releases, mas o H3 não foi confirmado nele.</li>
+    </ul>
+  </div>
+
+  <div class="panel" id="p-pc" role="tabpanel" aria-labelledby="t-pc" hidden>
+    <div class="card"><dl class="kv">
+      <dt>Processador</dt><dd>AMD Ryzen 7 5700X (8 núcleos, 16 threads)</dd>
+      <dt>Placa de vídeo</dt><dd>NVIDIA GeForce RTX 5060 Ti, 16 GB (driver 616.56)</dd>
+      <dt>Memória</dt><dd>32 GB DDR4 3200 MHz (2 x 16 GB)</dd>
+      <dt>Sistema</dt><dd>Windows 11 Pro</dd>
+      <dt>ComfyUI</dt><dd>0.41.1 portátil, Python 3.13, PyTorch 2.13 com CUDA 13.0</dd>
+      <dt>Extras</dt><dd>SageAttention 2.2.0 e triton-windows 3.7.1</dd>
+    </dl></div>
+    <p class="muted">Se o seu PC for mais fraco, comece com resolução de 1 megapixel e um trecho por vez (veja o Passo 07).</p>
+  </div>
+</section>
+
+<section id="programas" data-title="Programas">
+  <div class="eyebrow">02</div>
+  <h2>Programas no Windows</h2>
+  <p>Instale na ordem. O ComfyUI foi ensinado em outro vídeo (veja o Passo 03), mas o <b>Git</b> e o <b>FFmpeg</b> não, então instale os dois aqui.</p>
+  <div class="card">
+    <label class="chk"><input type="checkbox" data-id="prog-driver"><span class="t"><strong>Driver da NVIDIA atualizado</strong><small><a href="https://www.nvidia.com/Download/index.aspx" target="_blank" rel="noopener">nvidia.com/Download</a></small></span></label>
+    <label class="chk"><input type="checkbox" data-id="prog-git"><span class="t"><strong>Git para Windows</strong><small>Instale com as opções padrão. <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git-scm.com/download/win</a></small></span></label>
+    <label class="chk"><input type="checkbox" data-id="prog-vc"><span class="t"><strong>Visual C++ Redistributable 2015-2022 (x64)</strong><small>O Triton precisa dele. <a href="https://aka.ms/vs/17/release/vc_redist.x64.exe" target="_blank" rel="noopener">vc_redist.x64.exe</a></small></span></label>
+    <label class="chk"><input type="checkbox" data-id="prog-ffmpeg"><span class="t"><strong>FFmpeg</strong><small>O Easy-Media precisa dele no sistema (PATH). Comando abaixo.</small></span></label>
+  </div>
+  <h3>Instalar o FFmpeg (PowerShell)</h3>
+  <div class="cmdbox"><pre class="cmd" data-raw>winget install Gyan.FFmpeg</pre><button class="copy" type="button">Copiar</button></div>
+  <p>Feche e abra o PowerShell e confira:</p>
+  <div class="cmdbox"><pre class="cmd" data-raw>ffmpeg -version</pre><button class="copy" type="button">Copiar</button></div>
+  <p class="muted">Sem o winget, baixe o FFmpeg em <a href="https://www.gyan.dev/ffmpeg/builds/" target="_blank" rel="noopener">gyan.dev/ffmpeg/builds</a> e adicione a pasta <code>bin</code> ao PATH do Windows.</p>
+</section>
+
+<section id="comfy" data-title="ComfyUI">
+  <div class="eyebrow">03</div>
+  <h2>ComfyUI portátil</h2>
+  <div class="card" style="display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap">
+    <div><b>Instalação do ComfyUI</b><br><span class="muted">Foi ensinada em outro vídeo do canal. Assista e volte aqui.</span></div>
+    <a class="dl" href="https://www.youtube.com/watch?v=ByY4LOcs_1Q" target="_blank" rel="noopener">Ver vídeo de instalação</a>
+  </div>
+  <div class="rootbox">
+    <label for="rootIn">Pasta do seu ComfyUI portátil:</label>
+    <input id="rootIn" type="text" spellcheck="false" autocomplete="off" aria-describedby="rootHelp rootStatus">
+  </div>
+  <p class="muted" id="rootHelp">Digite aqui o caminho da pasta <code>ComfyUI_windows_portable</code> (a que tem o arquivo <code>run_nvidia_gpu.bat</code>). <b>Todos os comandos deste guia se ajustam sozinhos</b> e ficam prontos para copiar e colar. Dica: abra a pasta no Explorador de Arquivos, clique na barra de endereço, copie o caminho (Ctrl+C) e cole aqui.</p>
+  <p class="rootstatus" id="rootStatus" role="status" aria-live="polite"></p>
+  <div class="note"><b>Use o PowerShell, não o Prompt de Comando.</b>Aperte a tecla Windows, digite <code>PowerShell</code> e abra. Como os comandos já levam o caminho completo, ele pode estar aberto em qualquer pasta.</div>
+
+  <ol class="steps">
+    <li><b>Confira a versão.</b> O Easy-Media exige o ComfyUI 0.34.0 ou mais novo.
+      <div class="cmdbox"><pre class="cmd" data-raw>Get-Content "{ROOT}\ComfyUI\comfyui_version.py"</pre><button class="copy" type="button">Copiar</button></div>
+    </li>
+    <li><b>Se estiver velho, atualize.</b> Execute este arquivo:
+      <div class="cmdbox"><pre class="cmd" data-raw>& "{ROOT}\update\update_comfyui.bat"</pre><button class="copy" type="button">Copiar</button></div>
+    </li>
+  </ol>
+  <label class="chk card"><input type="checkbox" data-id="comfy-ok"><span class="t"><strong>ComfyUI 0.34 ou mais novo funcionando</strong><small>Abra com <code>run_nvidia_gpu.bat</code> e confirme que a interface carrega.</small></span></label>
+  <div class="note"><b>Você não precisa do Manager.</b>Todos os custom nodes abaixo são instalados com <code>git clone</code>, direto na pasta <code>custom_nodes</code>.</div>
+</section>
+
+<section id="nodes" data-title="Custom nodes">
+  <div class="eyebrow">04</div>
+  <h2>Custom nodes, sem Manager</h2>
+  <p>Este workflow usa dois pacotes. O núcleo do ComfyUI cobre o resto.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Pacote</th><th>Nós usados</th><th>Link</th></tr></thead>
+    <tbody>
+      <tr><td><b>ComfyUI-Easy-Media</b></td><td><code>easy multiTrackEditor</code>, <code>easy multitrackProject</code>, <code>easy multitrackProjectVideoCombine</code>, <code>easy modelLoaderPack</code>, <code>easy saveVideo</code></td><td><a href="https://github.com/yolain/ComfyUI-Easy-Media" target="_blank" rel="noopener">GitHub</a></td></tr>
+      <tr><td><b>ComfyUI-KJNodes</b></td><td><code>ModelPreviewOverrideKJ</code>, <code>MiniMaxH3MemoryEfficientSageAttentionPatch</code></td><td><a href="https://github.com/kijai/ComfyUI-KJNodes" target="_blank" rel="noopener">GitHub</a></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>1. Confira o caminho do ComfyUI</h3>
+  <p>Os comandos abaixo usam o caminho que você digitou no Passo 03. Se ainda não digitou, volte lá primeiro. Não precisa entrar na pasta <code>custom_nodes</code>. Rode este teste antes de clonar:</p>
+  <div class="cmdbox"><pre class="cmd" data-raw>Test-Path "{ROOT}\ComfyUI\custom_nodes"</pre><button class="copy" type="button">Copiar</button></div>
+  <div class="note warn"><b>Tem que aparecer True.</b>Se aparecer False, o caminho do Passo 03 está errado. Não clone ainda: o git cria as pastas mesmo no lugar errado, sem dar erro, e os nós não aparecem no ComfyUI.</div>
+  <h3>2. Clone os dois pacotes</h3>
+  <div class="cmdbox"><pre class="cmd" data-raw>git clone https://github.com/yolain/ComfyUI-Easy-Media.git "{ROOT}\ComfyUI\custom_nodes\comfyui-easy-media"
+git clone https://github.com/kijai/ComfyUI-KJNodes.git "{ROOT}\ComfyUI\custom_nodes\ComfyUI-KJNodes"</pre><button class="copy" type="button">Copiar</button></div>
+  <div class="note warn"><b>Mantenha o nome da pasta <code>comfyui-easy-media</code>.</b>Não deixe duas cópias do Easy-Media dentro de <code>custom_nodes</code>. Se aparecer o erro <code>already exists and is not an empty directory</code>, você já tem essa pasta (por exemplo, instalada antes pelo Manager): use a caixa "X vermelho" logo abaixo. Se aparecer <code>git não é reconhecido</code>, instale o Git (Passo 02) e abra um PowerShell novo.</div>
+  <h3>3. Instale as dependências do KJNodes</h3>
+  <p>O <code>git clone</code> não instala dependências sozinho (o Manager faria isso). Rode:</p>
+  <div class="cmdbox"><pre class="cmd" data-raw>& "{ROOT}\python_embeded\python.exe" -m pip install -r "{ROOT}\ComfyUI\custom_nodes\ComfyUI-KJNodes\requirements.txt"</pre><button class="copy" type="button">Copiar</button></div>
+  <p class="muted">O Easy-Media não tem arquivo de dependências, então não precisa deste passo para ele.</p>
+  <h3>4. Reinicie o ComfyUI</h3>
+  <p>Feche o ComfyUI por completo e abra de novo. Para atualizar um pacote no futuro:</p>
+  <div class="cmdbox"><pre class="cmd" data-raw>git -C "{ROOT}\ComfyUI\custom_nodes\comfyui-easy-media" pull
+git -C "{ROOT}\ComfyUI\custom_nodes\ComfyUI-KJNodes" pull</pre><button class="copy" type="button">Copiar</button></div>
+
+  <details>
+    <summary>Os nós do Easy-Media aparecem com X vermelho? (instalou pelo Manager antes)</summary>
+    <div>
+      <p>Quem instalou o Easy-Media pelo Manager pode ficar com a <b>versão 1.2.1</b>. Essa pasta não é um repositório git (não atualiza com <code>git pull</code>) e não tem os nós <code>easy multitrackProject</code>, <code>easy multitrackProjectVideoCombine</code> e <code>easy modelLoaderPack</code>. Eles aparecem em vermelho, com campos "UNKNOWN". O editor carrega normalmente, o que confunde.</p>
+      <p><b>A solução que funcionou:</b> trocar a pasta por um clone git da versão atual (1.3.4). Feche o ComfyUI e rode:</p>
+      <div class="cmdbox"><pre class="cmd" data-raw>New-Item -ItemType Directory -Force "{ROOT}\ComfyUI\custom_nodes_backup" | Out-Null
+Move-Item "{ROOT}\ComfyUI\custom_nodes\comfyui-easy-media" "{ROOT}\ComfyUI\custom_nodes_backup\comfyui-easy-media-antigo"
+git clone https://github.com/yolain/ComfyUI-Easy-Media.git "{ROOT}\ComfyUI\custom_nodes\comfyui-easy-media"</pre><button class="copy" type="button">Copiar</button></div>
+      <p>O backup vai para fora de <code>custom_nodes</code>, para o ComfyUI não carregar as duas cópias. Depois abra o ComfyUI e use Ctrl+F5 no navegador.</p>
+    </div>
+  </details>
+  <details>
+    <summary>Opcional: NativeAudioLock (só para vídeos com fala)</summary>
+    <div>
+      <p>Não é necessário para este workflow. O nó de áudio travado fica desativado quando o vídeo não tem fala. Ele está dentro de outro repositório, então clone numa pasta temporária e copie só a pasta do nó:</p>
+      <div class="cmdbox"><pre class="cmd" data-raw>Set-Location "{ROOT}\ComfyUI\custom_nodes"; git clone https://github.com/Shrek3OnVH5/MiniMax-H3-NativeAudio-MusicVideo-Workflow.git _h3tmp; Copy-Item -Recurse "_h3tmp\custom_nodes\ComfyUI-H3-NativeAudioLock" .; Remove-Item -Recurse -Force _h3tmp</pre><button class="copy" type="button">Copiar</button></div>
+    </div>
+  </details>
+  <div class="note bad"><b>Não instale o ComfyUI-MiniMaxH3-Cache.</b>A página do ComfyUI Wiki avisa que ele pode quebrar a geração do H3. Se já instalou, apague a pasta dele e reinicie.</div>
+
+  <label class="chk card"><input type="checkbox" data-id="nodes-ok"><span class="t"><strong>Easy-Media 1.3.4 e KJNodes clonados, ComfyUI reiniciado</strong><small>Confira se o arquivo <code>comfyui-easy-media\pyproject.toml</code> mostra <code>version = "1.3.4"</code> (ou mais nova).</small></span></label>
+</section>
+
+<section id="sage" data-title="SageAttention">
+  <div class="eyebrow">05</div>
+  <h2>SageAttention e Triton (NVIDIA)</h2>
+  <div class="note warn"><b>É o passo mais chato do Windows.</b>O nó <code>MiniMaxH3MemoryEfficientSageAttentionPatch</code>, do KJNodes, precisa do SageAttention, que por sua vez precisa do Triton. Sem eles o nó dá erro. Se não conseguir instalar, siga para o fim deste passo.</div>
+  <ol class="steps">
+    <li><b>Instale o Visual C++ Redistributable</b> (Passo 02, item 4), se ainda não instalou.</li>
+    <li><b>Copie as pastas <code>include</code> e <code>libs</code> do Python</b> para dentro de <code>python_embeded</code>. O ComfyUI portátil atual usa Python 3.13, e o repositório do triton-windows disponibiliza o arquivo certo para cada versão. Use <code>libs</code> (não mexa na pasta <code>Lib</code>). <a href="https://github.com/woct0rdho/triton-windows" target="_blank" rel="noopener">Repositório do triton-windows</a></li>
+    <li><b>Veja a sua versão do PyTorch e do CUDA:</b>
+      <div class="cmdbox"><pre class="cmd" data-raw>& "{ROOT}\python_embeded\python.exe" -c "import torch; print(torch.__version__, torch.version.cuda)"</pre><button class="copy" type="button">Copiar</button></div>
+    </li>
+    <li><b>Instale o Triton para Windows.</b> A versão do triton-windows precisa casar com a do PyTorch. No PC do autor, com o ComfyUI portátil atual (PyTorch 2.13 e CUDA 13), funciona exatamente esta versão, por isso o comando a fixa:
+      <div class="cmdbox"><pre class="cmd" data-raw>& "{ROOT}\python_embeded\python.exe" -m pip install "triton-windows==3.7.1.post27"</pre><button class="copy" type="button">Copiar</button></div>
+      <span class="muted">Se o resultado do comando anterior mostrar outro PyTorch, confira a tabela de versões no <a href="https://github.com/woct0rdho/triton-windows" target="_blank" rel="noopener">repositório do triton-windows</a>. Evite <code>pip install -U triton-windows</code>: ele instala sempre a versão mais nova, que pode não casar com o seu PyTorch.</span>
+    </li>
+    <li><b>Baixe a roda (arquivo .whl) do SageAttention</b> que combine com o seu CUDA (cu128 ou cu130) e com o PyTorch, nas releases do projeto. No PC do autor está o SageAttention 2.2.0 para cu130. <b>Coloque o arquivo .whl dentro da pasta <code>ComfyUI_windows_portable</code></b> (a mesma que você digitou no Passo 03) e rode o comando, que acha o arquivo sozinho:
+      <div class="cmdbox"><pre class="cmd" data-raw>& "{ROOT}\python_embeded\python.exe" -m pip install (Get-ChildItem "{ROOT}\sageattention*.whl").FullName</pre><button class="copy" type="button">Copiar</button></div>
+      <span class="muted">Deixe só um arquivo <code>sageattention...whl</code> nessa pasta.</span><br>
+      <a href="https://github.com/woct0rdho/SageAttention/releases" target="_blank" rel="noopener">Releases do SageAttention para Windows</a>
+    </li>
+    <li><b>Teste:</b>
+      <div class="cmdbox"><pre class="cmd" data-raw>& "{ROOT}\python_embeded\python.exe" -c "import triton, sageattention; print('ok')"</pre><button class="copy" type="button">Copiar</button></div>
+    </li>
+  </ol>
+  <div class="note"><b>Não conseguiu?</b>Tente desativar o nó de SageAttention no workflow (selecione e aperte Ctrl+B). O autor do workflow deixou uma alternativa desativada (<code>ModelAttentionBackend</code>, "comfy kitchen attention"). Não testei o workflow sem o SageAttention.</div>
+  <label class="chk card"><input type="checkbox" data-id="sage-ok"><span class="t"><strong>SageAttention e Triton instalados (ou decidi pular este passo)</strong></span></label>
+</section>
+
+<section id="modelos" data-title="Modelos">
+  <div class="eyebrow">06</div>
+  <h2>Modelos e arquivos</h2>
+  <p>Todos ficam dentro de <code>ComfyUI_windows_portable\ComfyUI\models\</code>. Clique em <b>Baixar</b> e mova o arquivo para a pasta indicada. Os links do Hugging Face baixam direto.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Arquivo</th><th>Tamanho</th><th>Pasta em models\</th><th></th></tr></thead>
+    <tbody>
+      <tr><td><span class="file">Minimax-h3_Singularity_ref2va_Pruned_v1.3_int8.safetensors</span><span class="tag g">recomendado</span><small>Modelo principal (referência de imagem). Versão podada, a que cabe melhor em 16 GB.</small></td><td>21,0 GB</td><td><code>diffusion_models</code></td><td><a class="dl" target="_blank" rel="noopener" href="https://huggingface.co/WarmBloodAban/Minimax-h3_Singularity/resolve/main/Minimax-h3_Singularity_ref2va_Pruned_v1.3_int8.safetensors">Baixar</a></td></tr>
+      <tr><td><span class="file">qwen3vl_32b_minimax_h3_int8_convrot.safetensors</span><small>Codificador de texto.</small></td><td>27,1 GB</td><td><code>text_encoders</code></td><td><a class="dl" target="_blank" rel="noopener" href="https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_int8_convrot.safetensors">Baixar</a></td></tr>
+      <tr><td><span class="file">minimax_h3_video_vae_int8_convrot.safetensors</span><small>VAE de vídeo.</small></td><td>cerca de 3 GB</td><td><code>vae</code></td><td><a class="dl" target="_blank" rel="noopener" href="https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_int8_convrot.safetensors">Baixar</a></td></tr>
+      <tr><td><span class="file">minimax_h3_audio_vae_fp32.safetensors</span><small>VAE de áudio.</small></td><td>0,6 GB</td><td><code>vae</code></td><td><a class="dl" target="_blank" rel="noopener" href="https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors">Baixar</a></td></tr>
+      <tr><td><span class="file">minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors</span><small>LoRA turbo de 4 passos. Força 1.0. Sem palavra-chave.</small></td><td>2,0 GB</td><td><code>loras</code></td><td><a class="dl" target="_blank" rel="noopener" href="https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/loras/minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors">Baixar</a></td></tr>
+      <tr><td><span class="file">taeh3.safetensors</span><small>Prévia rápida do vídeo durante a geração.</small></td><td>10 MB</td><td><code>vae_approx</code></td><td><a class="dl" target="_blank" rel="noopener" href="https://huggingface.co/Kijai/MiniMax-H3-TAE/resolve/main/vae_approx/taeh3.safetensors">Baixar</a></td></tr>
+      <tr><td><span class="file">minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors</span><small>Upscaler de latente. Este workflow usa o modo de passada única, mas o campo precisa de um arquivo válido. O workflow procura o nome <code>minimax_h3_latent_upscaler_3d_bf16</code> (veja o comando de renomear abaixo).</small></td><td>0,7 GB</td><td><code>latent_upscale_models</code></td><td><a class="dl" target="_blank" rel="noopener" href="https://huggingface.co/LBH-123-AI/Minimax_h3_latent_Upscaler/resolve/main/minimax_h3_latent_upscaler_3d_conv_v1/minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors">Baixar</a></td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Total: cerca de 55 GB.</b></p>
+  <h3>Renomear o upscaler (opcional)</h3>
+  <p>Depois de mover o arquivo para a pasta, rode este comando para o workflow achar o upscaler sozinho. Se preferir, pule e escolha o arquivo na lista do nó (Passo 07).</p>
+  <div class="cmdbox"><pre class="cmd" data-raw>Rename-Item "{ROOT}\ComfyUI\models\latent_upscale_models\minimax_h3_latent_upscaler_3d_conv_v1_bf16.safetensors" "minimax_h3_latent_upscaler_3d_bf16.safetensors"</pre><button class="copy" type="button">Copiar</button></div>
+  <details>
+    <summary>Codificador de texto mais leve (nvfp4, 15,7 GB, opcional)</summary>
+    <div>
+      <p>A tabela usa o <code>int8_convrot</code> (cerca de 27 GB), o mesmo que vem no workflow. Se o seu PC tiver pouca memória, o <code>nvfp4_awq</code> (15,7 GB) é bem mais leve. Para usá-lo, basta escolhê-lo na lista do nó CLIPLoader (Passo 07):</p>
+      <p><a class="dl" target="_blank" rel="noopener" href="https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors">Baixar nvfp4 (15,7 GB)</a> <span class="muted">Pasta: <code>text_encoders</code></span></p>
+    </div>
+  </details>
+  <details>
+    <summary>Versão maior do modelo principal (34 GB, opcional)</summary>
+    <div>
+      <p>Existe também a versão <b>não podada</b>, de 34 GB: <code>Minimax-h3_Singularity_ref2va_v1.3_int8.safetensors</code>. Ela pede bem mais memória RAM e não é necessária. Se quiser mesmo assim:</p>
+      <p><a class="dl" target="_blank" rel="noopener" href="https://huggingface.co/WarmBloodAban/Minimax-h3_Singularity/resolve/main/Minimax-h3_Singularity_ref2va_v1.3_int8.safetensors">Baixar versão de 34 GB</a></p>
+      <p class="muted">O Singularity combina com o LoRA turbo de 4 passos. Segundo a nota do workflow, não troque pelo de 8 passos.</p>
+    </div>
+  </details>
+  <div class="note"><b>Segurança:</b>todos os arquivos acima são <code>.safetensors</code>, que não executam código. Baixe só pelos links deste guia.</div>
+  <label class="chk card"><input type="checkbox" data-id="models-ok"><span class="t"><strong>Todos os 7 arquivos baixados e nas pastas certas</strong><small>Confira o tamanho de cada um no Explorador de Arquivos. Reinicie o ComfyUI depois de mover os arquivos.</small></span></label>
+</section>
+
+<section id="workflow" data-title="Workflow">
+  <div class="eyebrow">07</div>
+  <h2>Abrir e configurar o workflow</h2>
+  <div class="card" style="display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap">
+    <div><b>MINIMAX H3 Motion Context V2</b><br><span class="muted">Arquivo .json do workflow (abre o Google Drive em outra aba)</span></div>
+    <a class="dl" id="wfLink" href="#" target="_blank" rel="noopener">Baixar workflow</a>
+  </div>
+  <ol class="steps">
+    <li><b>Arraste o arquivo .json</b> para dentro do ComfyUI. Nenhum nó deve aparecer em vermelho.</li>
+    <li><b>Escolha os arquivos nas listas</b> (os nomes devem aparecer, porque você baixou na pasta certa):
+      <ul>
+        <li><b>UNETLoader:</b> o modelo Singularity que você baixou (podado ou de 34 GB).</li>
+        <li><b>CLIPLoader:</b> <code>qwen3vl_32b_minimax_h3_int8_convrot</code> (já vem selecionado no workflow), tipo <code>minimax</code>. Se baixou o nvfp4 mais leve, escolha ele na lista.</li>
+        <li><b>VAELoader (2x):</b> o VAE de vídeo e o VAE de áudio.</li>
+        <li><b>LoraLoaderModelOnly:</b> o LoRA turbo de 4 passos, força 1.0.</li>
+        <li><b>easy multitrackProject, campo do upscaler:</b> escolha o arquivo de upscaler que você baixou. O workflow procura <code>minimax_h3_latent_upscaler_3d_bf16</code>. Se você não renomeou o arquivo (Passo 06), o nome não estará na lista e o ComfyUI barra a execução até você escolher o seu.</li>
+      </ul>
+    </li>
+    <li><b>Imagem de referência:</b> no editor multitrilha, no trecho 1, adicione a imagem da sua personagem. Passe o mouse sobre ela, clique no ícone de compartilhar e escolha "Use as shared reference". Os trechos seguintes herdam a imagem.</li>
+    <li><b>Nome do projeto:</b> preencha o <code>project_name</code> (vazio vira "default").</li>
+    <li><b>Teste curto primeiro:</b> coloque <code>segment_count</code> em 1 para gerar só o primeiro trecho. Funcionando, volte para -1 (todos os trechos).</li>
+    <li><b>Quer um vídeo mais longo?</b> Adicione mais trechos na timeline do editor. O trecho 1 é o "shot" e todos os seguintes são "context" (continuam do anterior). Escreva um prompt de continuação para cada um e gere de novo.</li>
+  </ol>
+  <h3>Receitas embutidas no workflow</h3>
+  <div class="grid2">
+    <div class="card"><b>Passos (nó verde)</b>
+      <ul><li><b>8:</b> padrão (dança, mãos rápidas, fundo cheio, andar e falar)</li><li><b>6:</b> pouco movimento (rosto falando, câmera parada)</li><li><b>4:</b> só sem fala, senão perde sílabas</li></ul></div>
+    <div class="card"><b>Resolução</b>
+      <ul><li><b>1,0 MP:</b> padrão rápido para testar</li><li><b>1,4 MP:</b> até cerca de 10 s por trecho em placa de 24 a 32 GB</li><li><b>Regra de VRAM:</b> quadros x megapixels no máximo cerca de 540 por trecho</li></ul></div>
+  </div>
+  <div class="card"><b>Dicas de prompt para trechos de continuação</b>
+    <ul>
+      <li>Abra cada trecho de contexto só com a continuação: mesmo ritmo, mesma câmera, mesma luz, e nenhum substantivo de cenário.</li>
+      <li>Os tempos de um trecho de contexto caem cerca de 0,92 s antes no vídeo final. Escreva T + 0,92 para cair em T.</li>
+      <li>Nunca carregue um movimento de câmera progressivo através de uma emenda. Coloque as emendas no meio de uma caminhada ou corrida, nunca numa porta.</li>
+      <li>Diálogo: cerca de uma frase curta a cada 2,5 s.</li>
+      <li><b>Não quer escrever os prompts do zero?</b> Use o System Prompt do Passo 08: um agente de IA planeja os trechos e entrega um prompt pronto para cada um.</li>
+    </ul>
+  </div>
+  <div class="note"><b>Onde ficam os vídeos:</b><code>ComfyUI\output\easy_media\projects\NOME_DO_PROJETO\</code>. Para refazer só um trecho, use <code>segment_start_number</code> = N e <code>segment_count</code> = 1. A continuação precisa do contexto salvo nessa pasta, não basta o MP4.</div>
+  <label class="chk card"><input type="checkbox" data-id="wf-ok"><span class="t"><strong>Primeiro trecho gerado sem erros</strong></span></label>
+</section>
+
+<section id="prompts" data-title="System Prompt">
+  <div class="eyebrow">08</div>
+  <h2>Prompts prontos com um agente</h2>
+  <p>Você não precisa criar os prompts do zero. O <b>System Prompt</b> abaixo transforma um agente de IA (ChatGPT, Claude, Gemini ou outro) num escritor de prompts para este workflow: você conta a história e ele planeja os trechos, diz como configurar o editor e entrega <b>um prompt pronto para colar em cada trecho</b>.</p>
+  <div class="card" style="display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap">
+    <div><b>MiniMax H3 Long Take (Motion Context) Prompt Writer</b><br><span class="muted">Arquivo de texto com as instruções do agente (abre o Google Drive em outra aba)</span></div>
+    <a class="dl" id="spLink" data-cfg="systemPromptUrl" href="#" target="_blank" rel="noopener">Baixar System Prompt</a>
+  </div>
+
+  <h3>O que o agente faz</h3>
+  <ul>
+    <li>Pergunta só o que faltar: a história, a duração total, a proporção (16:9 ou 9:16), os personagens e as falas.</li>
+    <li>Escolhe o tamanho e a resolução dos trechos e mostra um <b>plano de trechos</b> para você aprovar.</li>
+    <li>Explica como configurar o editor multitrilha (resolução, trecho 1 como "shot" e os seguintes como "context", imagem de referência só no trecho 1).</li>
+    <li>Entrega um prompt por trecho, no formato que o workflow usa, já com o bloco de continuação nos trechos de contexto e os tempos ajustados.</li>
+  </ul>
+
+  <h3>Como usar, passo a passo</h3>
+  <ol class="steps">
+    <li><b>Baixe o arquivo</b> pelo botão acima e abra no Bloco de Notas.</li>
+    <li><b>Copie todo o texto</b> (Ctrl+A e depois Ctrl+C).</li>
+    <li><b>Cole como instrução do agente.</b> O melhor é colocar na área de instruções fixas, para valer em todas as conversas. O nome muda conforme o app: nos Projetos do Claude e do ChatGPT é o campo de instruções do projeto; num GPT personalizado ou num Gem do Gemini é o campo "Instruções". Se o seu app não tiver isso, cole como a primeira mensagem de uma conversa nova.</li>
+    <li><b>Mande a sua ideia.</b> Exemplo de mensagem (adapte à sua história):
+      <div class="cmdbox"><pre class="cmd txt" data-raw>História: uma mulher acorda num porão escuro, pega uma lanterna, encontra uma escada e sobe até o convés de um navio, de noite.
+Duração total: 45 segundos.
+Proporção: 16:9.
+Personagem: uma mulher, vou enviar uma foto de referência dela.
+Falas: nenhuma.</pre><button class="copy" type="button">Copiar</button></div>
+    </li>
+    <li><b>Confira o plano de trechos</b> que o agente mostrar e peça ajustes antes de seguir.</li>
+    <li><b>Copie cada prompt</b> (um por trecho) e cole no trecho correspondente do editor multitrilha, na ordem. A imagem de referência vai só no trecho 1, como referência compartilhada (Passo 07).</li>
+  </ol>
+  <div class="note"><b>Os prompts saem em inglês.</b>É o idioma que o workflow espera. Se tiver falas, elas também ficam em inglês, segundo as regras do System Prompt.</div>
+  <div class="note warn"><b>Revise antes de gerar.</b>O agente é uma IA e pode errar. Confira o plano de trechos e leia cada prompt antes de colar. Este System Prompt foi escrito para o editor multitrilha deste workflow, e não serve para outros fluxos.</div>
+  <label class="chk card"><input type="checkbox" data-id="prompt-ok"><span class="t"><strong>Gerei os prompts com o agente e colei nos trechos</strong></span></label>
+</section>
+
+<section id="problemas" data-title="Problemas comuns">
+  <div class="eyebrow">09</div>
+  <h2>Problemas comuns</h2>
+  <details><summary>Nós em vermelho (easy multitrackProject, VideoCombine, modelLoaderPack)</summary><div>
+    <p>É o Easy-Media antigo (1.2.1). Veja o quadro "X vermelho" no Passo 04 e troque pela versão git.</p></div></details>
+  <details><summary>"Value not in list" no campo do upscaler</summary><div>
+    <p>O nome salvo no workflow não existe na sua pasta. Abra o nó <code>easy multitrackProject</code> e escolha, na lista, o arquivo de upscaler que você baixou, ou renomeie o arquivo (Passo 06). O mesmo vale para o CLIPLoader se você baixou outro codificador de texto.</p></div></details>
+  <details><summary>Erro de SageAttention ou Triton</summary><div>
+    <p>Confira se o Triton e o SageAttention combinam com a sua versão do PyTorch e do CUDA (Passo 05). Se não resolver, desative o nó de SageAttention com Ctrl+B.</p></div></details>
+  <details><summary>FFmpeg não encontrado</summary><div>
+    <p>Rode <code>ffmpeg -version</code> num PowerShell novo. Se der erro, o FFmpeg não está no PATH. Feche o ComfyUI e abra de novo depois de corrigir.</p></div></details>
+  <details><summary>Sem memória (OOM) ou travando o PC</summary><div>
+    <ul><li>Baixe a resolução para 1,0 MP.</li><li>Gere um trecho por vez (<code>segment_count</code> = 1).</li><li>Use o modelo podado (21 GB) e não o de 34 GB.</li><li>Feche navegador e outros programas pesados. Com 32 GB de RAM o Windows pode usar o disco como memória, e fica lento.</li></ul></div></details>
+  <details><summary>O editor multitrilha quebra depois de atualizar o ComfyUI (frontend 1.53 ou mais novo)</summary><div>
+    <p>Um aviso do autor do workflow descreve esse caso: o <code>MultiTrack Editor</code> perde a entrada de megapixels e abre workflows antigos com a timeline vazia. A causa seria um <b>conflito com o pacote ComfyUI-Easy-Use</b>.</p>
+    <ul><li><b>Se você não tem o Easy-Use instalado, isso não se aplica.</b> No PC do autor não há Easy-Use, e o editor funciona no frontend 1.55.</li>
+    <li>Se tiver o Easy-Use e o problema aparecer: não aperte o botão "Fix" do nó, e não salve um workflow que foi aberto com o erro, porque a timeline pode ter sido sobrescrita.</li>
+    <li>Reinstalar ou voltar a versão do Easy-Media não resolve, segundo o aviso.</li></ul></div></details>
+  <details><summary>AMD: erro ao carregar o VAE</summary><div>
+    <p>Há um relato de falha no Windows com RX 9070 XT. Veja o quadro AMD no Passo 01.</p></div></details>
+</section>
+
+<section id="links" data-title="Todos os links">
+  <div class="eyebrow">10</div>
+  <h2>Todos os links</h2>
+  <div class="links card">
+    <a href="https://www.youtube.com/watch?v=ByY4LOcs_1Q" target="_blank" rel="noopener">Vídeo: como instalar o ComfyUI <small>youtube.com/watch?v=ByY4LOcs_1Q</small></a>
+    <a data-cfg="workflowUrl" href="#" target="_blank" rel="noopener">Workflow Motion Context V2 <small>Google Drive</small></a>
+    <a data-cfg="systemPromptUrl" href="#" target="_blank" rel="noopener">System Prompt (escritor de prompts) <small>Google Drive</small></a>
+    <a href="https://github.com/yolain/ComfyUI-Easy-Media" target="_blank" rel="noopener">ComfyUI-Easy-Media <small>github.com/yolain/ComfyUI-Easy-Media</small></a>
+    <a href="https://github.com/kijai/ComfyUI-KJNodes" target="_blank" rel="noopener">ComfyUI-KJNodes <small>github.com/kijai/ComfyUI-KJNodes</small></a>
+    <a href="https://github.com/woct0rdho/triton-windows" target="_blank" rel="noopener">triton-windows <small>github.com/woct0rdho/triton-windows</small></a>
+    <a href="https://github.com/woct0rdho/SageAttention/releases" target="_blank" rel="noopener">SageAttention para Windows <small>github.com/woct0rdho/SageAttention</small></a>
+    <a href="https://huggingface.co/Comfy-Org/MiniMax-H3" target="_blank" rel="noopener">MiniMax H3 (Comfy-Org) <small>huggingface.co/Comfy-Org/MiniMax-H3</small></a>
+    <a href="https://huggingface.co/WarmBloodAban/Minimax-h3_Singularity" target="_blank" rel="noopener">Singularity <small>huggingface.co/WarmBloodAban/Minimax-h3_Singularity</small></a>
+    <a href="https://huggingface.co/Kijai/MiniMax-H3-TAE" target="_blank" rel="noopener">TAE de prévia <small>huggingface.co/Kijai/MiniMax-H3-TAE</small></a>
+    <a href="https://huggingface.co/LBH-123-AI/Minimax_h3_latent_Upscaler" target="_blank" rel="noopener">Upscaler de latente <small>huggingface.co/LBH-123-AI/Minimax_h3_latent_Upscaler</small></a>
+    <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git para Windows <small>git-scm.com</small></a>
+    <a href="https://www.gyan.dev/ffmpeg/builds/" target="_blank" rel="noopener">FFmpeg <small>gyan.dev/ffmpeg/builds</small></a>
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer>
+  Guia não oficial, atualizado em 16/10/2026. Os modelos e pacotes seguem as licenças de cada autor, incluindo a MiniMax H3 Community License.<br>
+  Os requisitos são relatos da comunidade e podem mudar. Confira as páginas de origem antes de baixar.
+</footer>
+
+<script>
+/* ===== Personalize aqui ===== */
+var CONFIG = {
+  channelName: "",                                   // nome do seu canal (aparece ao lado da marca)
+  logo: "",                                          // cole aqui sua logo (data URL ou caminho de imagem) para trocar a marca simplificada
+  workflowUrl: "https://drive.google.com/file/d/1FUlG4YuDYAv5GjkE9qxp7wUgQIHNhjus/view?usp=sharing",   // link do workflow (abre em nova aba)
+  systemPromptUrl: "https://drive.google.com/file/d/19P4xCkyJYWeGlcNKidR62kpULt5AsAWj/view?usp=sharing", // link do System Prompt (abre em nova aba)
+  defaultRoot: "C:\\ComfyUI_windows_portable"        // caminho de exemplo mostrado enquanto o aluno não digita o dele
+};
+/* ============================ */
+
+(function(){
+  "use strict";
+  var store = {
+    get:function(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+    set:function(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+  };
+
+  /* marca */
+  document.getElementById("brandName").textContent = CONFIG.channelName;
+  if (CONFIG.logo) {
+    var img = new Image(); img.alt = ""; img.src = CONFIG.logo;
+    document.getElementById("brandSvg").replaceWith(img);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-cfg]"), function(a){
+    var u = CONFIG[a.getAttribute("data-cfg")];
+    if (u) { a.href = u; } else { a.removeAttribute("href"); a.removeAttribute("target"); a.style.opacity = ".6"; }
+  });
+  var wf = document.getElementById("wfLink");
+  if (CONFIG.workflowUrl) { wf.href = CONFIG.workflowUrl; }
+  else { wf.textContent = "Link do workflow: defina em CONFIG"; wf.removeAttribute("target"); wf.style.opacity = ".7"; }
+
+  /* tema */
+  var root = document.documentElement, themeBtn = document.getElementById("themeBtn");
+  function setTheme(t){ root.setAttribute("data-theme", t); themeBtn.textContent = t === "light" ? "Tema escuro" : "Tema claro"; store.set("h3guide-theme", t); }
+  setTheme(store.get("h3guide-theme") === "light" ? "light" : "dark");
+  themeBtn.addEventListener("click", function(){ setTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light"); });
+
+  /* pasta do ComfyUI nos comandos */
+  var rootIn = document.getElementById("rootIn");
+  var rootStatus = document.getElementById("rootStatus");
+  var cmds = Array.prototype.slice.call(document.querySelectorAll("pre.cmd"));
+  cmds.forEach(function(p){ p.dataset.src = p.textContent; });
+  function cleanRoot(raw){
+    var v = (raw || "").trim();
+    v = v.replace(/^["'\u201C\u201D]+|["'\u201C\u201D]+$/g, "");   /* tira aspas coladas */
+    v = v.replace(/\//g, "\\");                                     /* barras normais viram \ */
+    v = v.replace(/\\+$/g, "");                                     /* tira barra final */
+    return v;
+  }
+  function renderCmds(){
+    var typed = cleanRoot(rootIn.value);
+    var r = typed || CONFIG.defaultRoot;
+    cmds.forEach(function(p){ p.textContent = p.dataset.src.split("{ROOT}").join(r); });
+    rootStatus.className = "rootstatus";
+    if (!typed) {
+      rootStatus.classList.add("warn");
+      rootStatus.textContent = "Você ainda não digitou o caminho: os comandos abaixo mostram um EXEMPLO (" + CONFIG.defaultRoot + ") e vão dar erro até você preencher.";
+    } else if (/\\ComfyUI$/i.test(typed) || /\\(custom_nodes|models|python_embeded)$/i.test(typed)) {
+      rootStatus.classList.add("bad");
+      rootStatus.textContent = "Esse caminho parece ser uma pasta de dentro. Use a pasta de fora, a que tem o run_nvidia_gpu.bat (normalmente ComfyUI_windows_portable).";
+    } else if (!/^[A-Za-z]:\\/.test(typed)) {
+      rootStatus.classList.add("warn");
+      rootStatus.textContent = "O caminho deveria começar com a letra do disco, por exemplo C:\\ . Confira se copiou o caminho completo.";
+    } else {
+      rootStatus.classList.add("ok");
+      rootStatus.textContent = "Comandos ajustados para: " + typed;
+    }
+  }
+  rootIn.value = store.get("h3guide-root") || "";
+  rootIn.placeholder = CONFIG.defaultRoot;
+  rootIn.addEventListener("input", function(){ store.set("h3guide-root", rootIn.value); renderCmds(); });
+  renderCmds();
+
+  /* copiar */
+  function fallbackCopy(text){
+    var ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    var ok = false; try { ok = document.execCommand("copy"); } catch(e){}
+    document.body.removeChild(ta); return ok;
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".copy"), function(b){
+    b.addEventListener("click", function(){
+      var pre = b.parentNode.querySelector("pre");
+      var text = pre.textContent;
+      function done(ok){
+        if (!ok) { /* se o navegador bloquear a cópia, deixa o texto selecionado para Ctrl+C */
+          try { var rg = document.createRange(); rg.selectNodeContents(pre); var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(rg); } catch(e){}
+        }
+        b.textContent = ok ? "Copiado" : "Selecionado: Ctrl+C";
+        if (ok) b.classList.add("done");
+        setTimeout(function(){ b.textContent = "Copiar"; b.classList.remove("done"); }, 1600);
+      }
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(fallbackCopy(text)); });
+      } else { done(fallbackCopy(text)); }
+    });
+  });
+
+  /* abas */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  function selectTab(t){
+    tabs.forEach(function(x){
+      var on = x === t;
+      x.setAttribute("aria-selected", on ? "true" : "false");
+      document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
+    });
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener("click", function(){ selectTab(t); });
+    t.addEventListener("keydown", function(e){
+      var n = e.key === "ArrowRight" ? i + 1 : e.key === "ArrowLeft" ? i - 1 : null;
+      if (n === null) return; n = (n + tabs.length) % tabs.length; tabs[n].focus(); selectTab(tabs[n]); e.preventDefault();
+    });
+  });
+
+  /* checklist */
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"][data-id]'));
+  function updateProgress(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var pct = boxes.length ? Math.round(done / boxes.length * 100) : 0;
+    document.getElementById("pct").textContent = pct + "%";
+    document.getElementById("barFill").style.width = pct + "%";
+  }
+  boxes.forEach(function(b){
+    b.checked = store.get("h3guide-" + b.dataset.id) === "1";
+    b.addEventListener("change", function(){ store.set("h3guide-" + b.dataset.id, b.checked ? "1" : "0"); updateProgress(); });
+  });
+  document.getElementById("resetBtn").addEventListener("click", function(){
+    boxes.forEach(function(b){ b.checked = false; store.set("h3guide-" + b.dataset.id, "0"); });
+    updateProgress();
+  });
+  updateProgress();
+
+  /* navegação lateral */
+  var secs = Array.prototype.slice.call(document.querySelectorAll("main section"));
+  var nav = document.getElementById("nav");
+  secs.forEach(function(s, i){
+    var a = document.createElement("a"); a.href = "#" + s.id;
+    var n = document.createElement("span"); n.textContent = ("0" + i).slice(-2);
+    a.appendChild(n); a.appendChild(document.createTextNode(s.dataset.title));
+    nav.appendChild(a);
+  });
+  var links = Array.prototype.slice.call(nav.querySelectorAll("a"));
+  function mark(id){ links.forEach(function(a){ a.classList.toggle("on", a.getAttribute("href") === "#" + id); }); }
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting) mark(e.target.id); });
+    }, { rootMargin: "-25% 0px -65% 0px" });
+    secs.forEach(function(s){ io.observe(s); });
+  }
+  mark(secs[0].id);
+})();
+</script>
+</body>
+</html>
